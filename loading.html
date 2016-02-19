@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currently loading ...</title>
+    <script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function display_loading() {
+            // .... 其他指令
+            _oTag = document.getElementById("model");
+            _oTag.style.display = "none"; // hide it.
+        }
+        $(document).ready(function () {
+            if (window.attachEvent) {
+                window.attachEvent('onload', display_loading);
+            } else {
+                window.addEventListener('load', display_loading, false);
+            }
+        });
+    </script>
+</head>
+<body>
+<div id="model">
+    <div class="ModalManager modal fade in"
+         style="display: block;position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index: 100;overflow: hidden;background-color: rgba(170, 170, 170, 0.901961);">
+        <div class="Modal modal-dialog Modal--small SignUpModal">
+            <div id="divLoading"
+                 style="border:1px;border-radius: 10px;box-shadow: 0 7px 15px rgba(0,0,0,0.35);width: 75%;background: white;position: relative;margin: auto;">
+                <table valign="left">
+                    <tr>
+                        <td valign="left" style="padding-top: 10px;padding-bottom: 6px;padding-left: 15px"><img
+                                src="assets/pic/5-121204193Q8.gif"/></td>
+                        <td valign="center" style="padding-left: 40px"></td>
+                        <td valign="right">
+                            <div>努力加载中……<br>Loading...</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
