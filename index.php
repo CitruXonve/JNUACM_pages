@@ -186,12 +186,12 @@ function has_read_more_tag($str)
                                                                 <i class="icon fa fa-fw fa-reply "></i>
                                                                 <?php
                                                                 //load the author of this article
-                                                                /*$dau = new DataAccess();
-                                                                $dau->dosql("select * from wp_db.wp_users where ID=" . $row['uid']);
-                                                                $col = $dau->rtnres();*/
+                                                                $dau = new DataAccess();
+                                                                $dau->dosql("select * from users where ID=" . $row['uid']);
+                                                                $col = $dau->rtnres();
                                                                 ?>
                                                                 <span
-                                                                    class="username"><?php //echo $col['display_name'] ?></span> published
+                                                                    class="username"><?php echo $col['user_nickname'] ?></span> published
                                                                     <time datetime="2015-11-28T19:04:29+08:00"
                                                                           title="Saturday, November 28, 2015 7:04 PM"
                                                                           data-humantime="true"
