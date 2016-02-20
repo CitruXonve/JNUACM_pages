@@ -53,7 +53,7 @@ class DataAccess
         global $cfg;
         @$this->conn=mysql_connect($cfg['data_server'],$cfg['data_uid'],$cfg['data_pwd'])
             or $this->fail();
-        echo "数据库连接成功";
+//        echo "数据库连接成功";
         mysql_select_db($cfg['data_database'],$this->conn);
 //        mysql_query("set names utf8");
         mysql_query("set character set 'utf8'");   // PHP 文件为 utf-8 格式时使用

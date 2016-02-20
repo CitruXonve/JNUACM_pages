@@ -2,13 +2,33 @@
 <?php
 require_once "header.php";
 $da = new DataAccess();
+function parseContent($str)
+{
+    $read_more = '<!--more-->';
+    $pos = strpos($str, $read_more);
+    if ($pos === false)
+        return $str;
+    else
+        return substr($str, 0, $pos);
+}
+
+function has_read_more_tag($str)
+{
+    $read_more = '<!--more-->';
+    $pos = strpos($str, $read_more);
+    if ($pos === false)
+        return false;
+    else
+        return true;
+}
+
 ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Jiangnan University ACM-ICPC</title>
-    <link rel="stylesheet" href="assets/forum.css">
-    <script src="js/action.js"></script>
+    <link rel="stylesheet" href="./assets/forum.css">
+    <script src="./js/action.js"></script>
     <script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
     <script type="text/javascript">
     </script>
@@ -17,19 +37,39 @@ $da = new DataAccess();
 <script>
 </script>
 <div id="app" class="App">
-    <div id="app-navigation" class="App-navigation"></div>
     <div id="drawer" class="App-drawer">
         <header id="header" class="App-header">
-            <div id="header-navigation" class="Header-navigation"></div>
+            <div id="header-navigation" class="Header-navigation">
+                <div class="Navigation ButtonGroup "></div>
+            </div>
             <div class="container">
                 <h1 class="Header-title">
-                    <a>JNU ACM Club</a>
+                    <a href="/jnuacm/" id="home-link">
+                        JNU-ACM Club
+                    </a>
                 </h1>
-
+                <h1 class="Header-title">
+                    <a href="/swap/" id="home-link">
+                        Swap
+                    </a>
+                </h1>
+                <div id="header-primary" class="Header-primary">
+                    <ul class="Header-controls"></ul>
+                </div>
                 <div id="header-secondary" class="Header-secondary">
                     <ul class="Header-controls">
-                        <li class="item-Help">
-                            <button class="Button Button--link" type="button"><span class="Button-label">Help</span>
+                        <li class="item-search">
+                            <div class="Search ">
+                                <div class="Search-input"><input class="FormControl" placeholder="Search Forum"></div>
+                                <ul class="Dropdown-menu Search-results"></ul>
+                            </div>
+                        </li>
+                        <li class="item-signUp">
+                            <button class="Button Button--link" type="button"><span class="Button-label">Sign Up</span>
+                            </button>
+                        </li>
+                        <li class="item-logIn">
+                            <button class="Button Button--link" type="button"><span class="Button-label">Log In</span>
                             </button>
                         </li>
                     </ul>
@@ -87,7 +127,7 @@ $da = new DataAccess();
                                         <?php
                                         //load the list of tags
                                         $cnt = $da->dosql("SELECT * FROM tags");
-                                        while ($row=$da->rtnres()){
+                                        while ($row = $da->rtnres()) {
                                             ?>
                                             <li class="item-tag<?php echo $row['tid'] ?> ">
                                                 <a class="TagLinkButton hasIcon " href="" style="" title="">
@@ -127,7 +167,7 @@ $da = new DataAccess();
                                                             <span class="TagsLabel ">
                                                                 <?php
                                                                 //load the list of tags attached to this article
-                                                                $dat=new DataAccess();
+                                                                $dat = new DataAccess();
                                                                 $t_cnt = $dat->dosql("SELECT tags.* FROM posts LEFT JOIN posts_tags ON posts.pid=posts_tags.pid LEFT JOIN tags on tags.tid=posts_tags.tid WHERE posts.pid=" . $pid);
                                                                 while ($col = $dat->rtnres()) { ?>
                                                                     <span class="TagLabel  colored"
@@ -146,12 +186,12 @@ $da = new DataAccess();
                                                                 <i class="icon fa fa-fw fa-reply "></i>
                                                                 <?php
                                                                 //load the author of this article
-                                                                $dau=new DataAccess();
+                                                                /*$dau = new DataAccess();
                                                                 $dau->dosql("select * from wp_db.wp_users where ID=" . $row['uid']);
-                                                                $col = $dau->rtnres();
+                                                                $col = $dau->rtnres();*/
                                                                 ?>
                                                                 <span
-                                                                    class="username"><?php echo $col['display_name'] ?></span> published
+                                                                    class="username"><?php //echo $col['display_name'] ?></span> published
                                                                     <time datetime="2015-11-28T19:04:29+08:00"
                                                                           title="Saturday, November 28, 2015 7:04 PM"
                                                                           data-humantime="true"
@@ -165,8 +205,14 @@ $da = new DataAccess();
                                                             </span>
                                                         </li>
                                                         <li class="item-excerpt">
-                                                            <span><?php echo $row['content'] ?></span>
+                                                            <span>
+                                                                <?php
+                                                                echo parseContent($row['content']);
+                                                                if (has_read_more_tag($row['content']))
+                                                                    echo '……';
+                                                                ?></span>
                                                         </li>
+                                                        <a href="." style="<?php if (!has_read_more_tag($row['content'])) echo 'display:none;';?>">Read more</a>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -186,14 +232,18 @@ $da = new DataAccess();
                                                 <h3 class="DiscussionListItem-title">Blank</h3>
                                                 <ul class="DiscussionListItem-info">
                                                     <li class="item-tags">
-                                                                <span class="TagsLabel ">
-                                                                    <span class="TagLabel  colored"
-                                                                          style="background-color: rgb(242, 194, 190);">
-                                                                        <span class="TagLabel-text">分享</span>
-
-                                                                    </span>
-
-                                                                </span>
+                                                        <span class="TagsLabel ">
+                                                            <span
+                                                                class="TagLabel  colored"
+                                                                style="color: rgb(95, 128, 163); background-color: rgb(95, 128, 163);">
+                                                                <span class="TagLabel-text">题目</span>
+                                                            </span>
+                                                            <span
+                                                                class="TagLabel  colored"
+                                                                style="color: rgb(178, 189, 110); background-color: rgb(178, 189, 110);">
+                                                                <span class="TagLabel-text">未解决</span>
+                                                            </span>
+                                                        </span>
                                                     </li>
                                                     <li class="item-terminalPost">
                                                                 <span>
