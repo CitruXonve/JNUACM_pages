@@ -22,6 +22,32 @@ function has_read_more_tag($str)
         return true;
 }
 
+function parseDate($str)
+{
+    $day = 864e5;
+    $before = new DateTime($str);
+    $now = new DateTime();
+    $dif = $before->diff($now);
+    if (abs($dif->days) < 1 && abs($dif->h) < 1 && abs($dif->i) < 1)
+        return 'a minute ago';
+    else if (abs($dif->days) < 1 && abs($dif->h) < 1)
+        return $dif->format('i') . 'minutes ago';
+    else if (abs($dif->days) < 1 && abs($dif->h) < 2)
+        return 'an hour ago';
+    else if (abs($dif->days) < 1)
+        return $dif->format('%h') . 'hours ago';
+    else if (abs($dif->days) < 2)
+        return 'a day ago';
+    else if (abs($dif->days) < 30)
+        return $dif->format('%d') . ' days ago';
+    else if (abs($dif->days) < 60)
+        return 'a month ago';
+    else if (abs($dif->days) < 210)
+        return $dif->format('%m') . 'months ago';
+    else
+        return 'on ' . $before->format('Y/m/d');
+}
+
 ?>
 <html lang="en">
 <head>
@@ -60,7 +86,8 @@ function has_read_more_tag($str)
                     <ul class="Header-controls">
                         <li class="item-search">
                             <div class="Search ">
-                                <div class="Search-input"><input class="FormControl" placeholder="Search Forum"></div>
+                                <div class="Search-input"><input class="FormControl" placeholder="Search this site">
+                                </div>
                                 <ul class="Dropdown-menu Search-results"></ul>
                             </div>
                         </li>
@@ -156,8 +183,13 @@ function has_read_more_tag($str)
                                         <div class="DiscussionListItem">
                                             <div class="DiscussionListItem-content Slidable-content unread">
                                                 <div class="DiscussionListItem-author" title="" data-original-title="">
-                                                    <span class="Avatar "
-                                                          style="background: <?php echo $row['sg_color'] ?>; box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);"><?php echo $row['sg_ch'] ?></span>
+                                                    <?php
+                                                    //load the author of this article
+                                                    $dau = new DataAccess();
+                                                    $dau->dosql("select * from users where ID=" . $row['uid']);
+                                                    $col = $dau->rtnres();
+                                                    ?>
+                                                    <img class="Avatar " src="<?php echo $col['user_avatar'];?>">
                                                 </div>
                                                 <ul class="DiscussionListItem-badges badges"></ul>
                                                 <div class="DiscussionListItem-main">
@@ -169,13 +201,12 @@ function has_read_more_tag($str)
                                                                 //load the list of tags attached to this article
                                                                 $dat = new DataAccess();
                                                                 $t_cnt = $dat->dosql("SELECT tags.* FROM posts LEFT JOIN posts_tags ON posts.pid=posts_tags.pid LEFT JOIN tags on tags.tid=posts_tags.tid WHERE posts.pid=" . $pid);
-                                                                while ($col = $dat->rtnres()) { ?>
-                                                                    <span class="TagLabel  colored"
-                                                                          style="background-color: <?php echo $col['color'] ?> ">
+                                                                while ($rec = $dat->rtnres()) {
+                                                                    ?><span class="TagLabel  colored"
+                                                                            style="background-color: <?php echo $rec['color'] ?>;">
                                                                     <span
-                                                                        class="TagLabel-text"><?php echo $col['d_name'] ?></span>
-                                                                    </span>
-                                                                    <?php
+                                                                        class="TagLabel-text"><?php echo $rec['d_name'] ?></span>
+                                                                    </span><?php
                                                                 }
                                                                 unset($dat);
                                                                 ?>
@@ -184,18 +215,12 @@ function has_read_more_tag($str)
                                                         <li class="item-terminalPost">
                                                             <span>
                                                                 <i class="icon fa fa-fw fa-reply "></i>
-                                                                <?php
-                                                                //load the author of this article
-                                                                $dau = new DataAccess();
-                                                                $dau->dosql("select * from users where ID=" . $row['uid']);
-                                                                $col = $dau->rtnres();
-                                                                ?>
                                                                 <span
-                                                                    class="username"><?php echo $col['user_nickname'] ?></span> published
-                                                                    <time datetime="2015-11-28T19:04:29+08:00"
-                                                                          title="Saturday, November 28, 2015 7:04 PM"
-                                                                          data-humantime="true"
-                                                                          style="display: none"></time>
+                                                                    class="username"><?php echo $col['user_nickname'] ?></span> published <?php echo parseDate($row['date']) . '.'; ?>
+                                                                <time datetime="2015-11-28T19:04:29+08:00"
+                                                                      title="Saturday, November 28, 2015 7:04 PM"
+                                                                      data-humantime="true"
+                                                                      style="display: none"></time>
                                                                     <time datetime="<?php echo date("c") ?>"
                                                                           title="<?php echo date("l, F j, Y g:s A") ?>"
                                                                           data-humantime="true"></time>
@@ -212,7 +237,9 @@ function has_read_more_tag($str)
                                                                     echo '……';
                                                                 ?></span>
                                                         </li>
-                                                        <a href="." style="<?php if (!has_read_more_tag($row['content'])) echo 'display:none;';?>">Read more</a>
+                                                        <a href="."
+                                                           style="<?php if (!has_read_more_tag($row['content'])) echo 'display:none;'; ?>">Read
+                                                            more</a>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -233,14 +260,11 @@ function has_read_more_tag($str)
                                                 <ul class="DiscussionListItem-info">
                                                     <li class="item-tags">
                                                         <span class="TagsLabel ">
-                                                            <span
-                                                                class="TagLabel  colored"
-                                                                style="color: rgb(95, 128, 163); background-color: rgb(95, 128, 163);">
+                                                            <span class="TagLabel  colored"
+                                                                  style="color: rgb(95, 128, 163); background-color: rgb(95, 128, 163);">
                                                                 <span class="TagLabel-text">题目</span>
-                                                            </span>
-                                                            <span
-                                                                class="TagLabel  colored"
-                                                                style="color: rgb(178, 189, 110); background-color: rgb(178, 189, 110);">
+                                                            </span><span class="TagLabel  colored"
+                                                                         style="color: rgb(178, 189, 110); background-color: rgb(178, 189, 110);">
                                                                 <span class="TagLabel-text">未解决</span>
                                                             </span>
                                                         </span>
