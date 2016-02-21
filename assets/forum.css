@@ -388,7 +388,7 @@ blockquote p:last-child, blockquote ul:last-child, blockquote ol:last-child {
 
 .App:before {
     content: " ";
-    background: hsla(200, 75%, 45%, 0.85);
+    background: #1d8fc9;
     position: fixed;
     top: 0;
     left: 0;
@@ -466,7 +466,7 @@ blockquote p:last-child, blockquote ul:last-child, blockquote ol:last-child {
     }
 
     .App-primaryControl > .Button, .App-backControl > .Button {
-        color: #8c8c8c !important
+        color: #fff !important
     }
 
     .App-primaryControl > .Button .Button-icon, .App-backControl > .Button .Button-icon {
@@ -483,7 +483,7 @@ blockquote p:last-child, blockquote ul:last-child, blockquote ol:last-child {
         left: 50%;
         margin-left: -100px;
         text-align: center;
-        color: #269DD9 !important
+        color: #fff !important
     }
 
     .App-titleControl, .App-titleControl > .Button {
@@ -491,7 +491,7 @@ blockquote p:last-child, blockquote ul:last-child, blockquote ol:last-child {
     }
 
     .App-titleControl > .Button {
-        color: #269DD9;
+        color: #fff;
         width: 100%
     }
 
@@ -518,7 +518,7 @@ blockquote p:last-child, blockquote ul:last-child, blockquote ol:last-child {
     }
 
     .App-drawer {
-        background: #fff;
+        background: #a4c8f0;
         width: 270px;
         position: fixed;
         left: 0;
@@ -575,7 +575,7 @@ blockquote p:last-child, blockquote ul:last-child, blockquote ol:last-child {
     }
 
     .Header-title {
-        border-bottom: 1px solid #ededed;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         font-size: 16px;
         font-weight: normal;
         margin: 0;
@@ -722,7 +722,7 @@ blockquote p:last-child, blockquote ul:last-child, blockquote ol:last-child {
         vertical-align: top;
         font-size: 18px;
         font-weight: normal;
-        margin: 0 30px 0 0;
+        margin: 0 35px 0 0;
         line-height: 34px
     }
 
@@ -1050,7 +1050,7 @@ a.Button.disabled, fieldset[disabled] a.Button {
 
 .Button--primary {
     color: #fff;
-    background: hsl(200, 65%, 70%);
+    background: #81c3e4;
     font-weight: bold;
     padding-left: 20px;
     padding-right: 20px
@@ -1725,7 +1725,7 @@ textarea.FormControl {
         top: 0;
         left: 0;
         right: 0;
-        z-index: 1010;
+        z-index: 0;
         border-bottom: 1px solid #ededed;
         -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);

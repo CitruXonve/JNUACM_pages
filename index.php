@@ -53,6 +53,7 @@ function parseDate($str)
 <head>
     <meta charset="UTF-8">
     <title>Jiangnan University ACM-ICPC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
     <link rel="stylesheet" href="./assets/forum.css">
     <script src="./js/action.js"></script>
     <script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
@@ -62,7 +63,13 @@ function parseDate($str)
 <body>
 <script>
 </script>
-<div id="app" class="App">
+<div id="app" class="App App--index affix">
+    <div id="app-navigation" class="App-navigation">
+        <div class="Navigation ButtonGroup App-backControl">
+            <button class="Button Button--icon Navigation-drawer hasIcon" type="button"><i
+                    class="icon fa fa-fw fa-reorder Button-icon"></i></button>
+        </div>
+    </div>
     <div id="drawer" class="App-drawer">
         <header id="header" class="App-header">
             <div id="header-navigation" class="Header-navigation">
@@ -71,7 +78,7 @@ function parseDate($str)
             <div class="container">
                 <h1 class="Header-title">
                     <a href="/jnuacm/" id="home-link">
-                        JNU-ACM Club
+                        JNU-ACM Club::Home
                     </a>
                 </h1>
                 <h1 class="Header-title">
@@ -123,14 +130,14 @@ function parseDate($str)
                                 <button class="Button Button--primary IndexPage-newDiscussion hasIcon"
                                         itemclassname="App-primaryControl" type="button">
                                     <i class="icon fa fa-fw fa-edit Button-icon"></i>
-                                    <span class="Button-label">&nbsp;</span>
+                                    <span class="Button-label">Something to write...</span>
                                 </button>
                             </li>
                             <li class="item-nav">
                                 <div
                                     class="ButtonGroup Dropdown dropdown App-titleControl Dropdown--select itemCount12">
                                     <button class="Dropdown-toggle Button" data-toggle="dropdown">
-                                        <span class="Button-label">All Discussions</span>
+                                        <span class="Button-label">All Posts</span>
                                         <i class="icon fa fa-fw fa-sort Button-caret"></i>
                                     </button>
                                     <ul class="Dropdown-menu dropdown-menu ">
@@ -189,7 +196,7 @@ function parseDate($str)
                                                     $dau->dosql("select * from users where ID=" . $row['uid']);
                                                     $col = $dau->rtnres();
                                                     ?>
-                                                    <img class="Avatar " src="<?php echo $col['user_avatar'];?>">
+                                                    <img class="Avatar " src="<?php echo $col['user_avatar']; ?>">
                                                 </div>
                                                 <ul class="DiscussionListItem-badges badges"></ul>
                                                 <div class="DiscussionListItem-main">
