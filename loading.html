@@ -5,18 +5,6 @@
     <title>Currently loading ...</title>
     <script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
     <script type="text/javascript">
-        function display_loading() {
-            // .... 其他指令
-            _oTag = document.getElementById("model");
-            _oTag.style.display = "none"; // hide it.
-        }
-        $(document).ready(function () {
-            if (window.attachEvent) {
-                window.attachEvent('onload', display_loading);
-            } else {
-                window.addEventListener('load', display_loading, false);
-            }
-        });
     </script>
 </head>
 <body>
