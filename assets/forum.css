@@ -3114,7 +3114,7 @@ textarea.FormControl {
 
 .Hero {
     margin-top: -1px;
-    background: #ededed;
+    background: #e0e0e0;
     text-align: center;
     color: #8c8c8c
 }
@@ -4598,7 +4598,7 @@ a.PostMeta-permalink {
     white-space: normal;
     font-size: 12px;
     line-height: 1.5em;
-    color: #aaa;
+    color: #808080;
     display: block
 }
 
