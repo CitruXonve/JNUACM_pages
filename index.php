@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<?php
-require_once "header.php";
-?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,24 +6,10 @@ require_once "header.php";
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
     <link rel="stylesheet" href="./assets/forum.css">
     <script src="./js/action.js"></script>
-    <script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+    <?php
+    require_once "header.php";
+    ?>
     <script type="text/javascript">
-        function xmlhttpload_get(source,id){
-            var xmlhttp;
-            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp = new XMLHttpRequest();
-            }
-            else {// code for IE6, IE5
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById(id).innerHTML = xmlhttp.responseText;
-                }
-            }
-            xmlhttp.open("GET", source, true);
-            xmlhttp.send();
-        }
         function loadIndexPage() {
             xmlhttpload_get("main.php","content");
         }
