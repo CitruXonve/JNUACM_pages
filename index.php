@@ -31,7 +31,7 @@ require_once "header.php";
             xmlhttpload_get("main.php","content");
         }
         function loadSinglePost(pid){
-            xmlhttpload_get("single.php?p="+pid,"IndexPage-list");
+            xmlhttpload_get("single.php?p="+pid,"content");
         }
         function display_loading() {
             // .... 其他指令
