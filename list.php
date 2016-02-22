@@ -115,7 +115,7 @@ function parseDate($str)
                                                                 echo '……';
                                                             ?></span>
                                 </li>
-                                <a onclick="loadSinglePost(<?php echo $pid ?>)">Read
+                                <a id="<?php echo $pid ?>" class="item-read-more">Read
                                     more</a>
                             </ul>
                         </div>

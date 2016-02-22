@@ -142,7 +142,7 @@ $a_cnt = $da->dosql('SELECT * FROM posts where pid=' . "$pid");
                                             $dau->dosql("select * from users where ID=" . $row['uid']);
                                             $col = $dau->rtnres();
                                             ?>
-                                            <div class="PostUser"><h3><a href=""><img
+                                            <div class="PostUser"><h3><a><img
                                                             class="Avatar PostUser-avatar"
                                                             src="<?php echo $col['user_avatar']; ?>">
                                                         <span
