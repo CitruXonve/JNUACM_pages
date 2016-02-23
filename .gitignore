@@ -218,3 +218,5 @@ pip-log.txt
 *.TTF
 
 assets/font/æ¹æ­£åå_GBK.TTF
+
+.idea/
