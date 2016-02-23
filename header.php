@@ -6,6 +6,7 @@
  * Time: 20:30
  */
 require_once "include/lib.php";
+
 ?>
 <script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
 <script type="text/javascript">
