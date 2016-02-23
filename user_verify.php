@@ -57,6 +57,7 @@ if ($cnt != 1) {
     die("Verifying failed!");
 } else {
     session_start();
+    $_SESSION['user_id']=$da->rtnrlt(0)['ID'];
     $_SESSION['username'] = $da->rtnrlt(0)['user_login'];
     $_SESSION['timestamp'] = date_timestamp_get(new DateTime());
     echo $_SESSION['timestamp'];

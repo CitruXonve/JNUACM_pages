@@ -10,7 +10,7 @@ $da = new DataAccess();
 if (!isset($_SESSION['timestamp']))
     die("Not logged in!");
 
-$da->dosql("select * from users WHERE user_login='" . $_SESSION['username'] . "';");
+$da->dosql("select * from users WHERE ID='" . $_SESSION['user_id'] . "';");
 $col = $da->rtnres();
 //echo "select * from users WHERE user_login='".$_SESSION['username']."';";
 ?>
