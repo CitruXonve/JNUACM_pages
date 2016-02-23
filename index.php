@@ -73,8 +73,11 @@
             } else {
                 window.addEventListener('load', display_loading, false);
             }
-            $('#home-link').click(loadIndexPage());
-        })
+            $('#home-link').click(function(evt){
+                evt.preventDefault();
+                loadIndexPage();
+            })
+        });
     </script>
 </head>
 <body>
