@@ -83,9 +83,19 @@ function formatDatetimeInto($datetime, $str)
     return (new DateTime($datetime))->format($str);
 }
 
+function debug()
+{
+    echo GetCurUrl() . '|';
+
+    echo 'SELECT * FROM posts where pid=' . "$pid" . "|";
+//    print_r($matches);
+    echo "|";
+}
+
 $parsed_url = parse_url(GetCurUrl(), PHP_URL_QUERY);
-$pid = convertUrlQuery($parsed_url)['p'];
-//echo 'SELECT * FROM posts where pid=' . "$pid";
+preg_match('([0-9]+)', convertUrlQuery($parsed_url)['p'], $matches);
+$pid = $matches[0];
+//debug();
 
 $a_cnt = $da->dosql('SELECT * FROM posts where pid=' . "$pid");
 ?>

@@ -10,19 +10,38 @@
     require_once "header.php";
     ?>
     <script type="text/javascript">
+        /*function loadIndexPage() {
+         //            xmlhttpload_get("main.php","content");
+         var xmlhttp;
+         if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+         xmlhttp = new XMLHttpRequest();
+         }
+         else {// code for IE6, IE5
+         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+         }
+         xmlhttp.onreadystatechange = function () {
+         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+         document.getElementById("content").innerHTML = xmlhttp.responseText;
+         //                    alert("get");
+         $('.item-read-more').each(function () {
+         $(this).click(function (evt) {
+         evt.preventDefault();
+         //                            alert($(this).attr('id'));
+         loadSinglePost($(this).attr('id'));
+         })
+         })
+         }
+         }
+         xmlhttp.open("GET", "main.php", true);
+         xmlhttp.send();
+         }*/
         function loadIndexPage() {
-//            xmlhttpload_get("main.php","content");
-            var xmlhttp;
-            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp = new XMLHttpRequest();
-            }
-            else {// code for IE6, IE5
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById("content").innerHTML = xmlhttp.responseText;
-//                    alert("get");
+            $.ajax({
+                url: 'main.php',
+                cache: false,
+                success: function (returnData) {
+                    $('#content').html(returnData);
+
                     $('.item-read-more').each(function () {
                         $(this).click(function (evt) {
                             evt.preventDefault();
@@ -31,12 +50,17 @@
                         })
                     })
                 }
-            }
-            xmlhttp.open("GET", "main.php", true);
-            xmlhttp.send();
+            });
         }
         function loadSinglePost(pid) {
-            xmlhttpload_get("single.php?p=" + pid, "content");
+            //xmlhttpload_get("single.php?p=" + pid, "content");
+            $.ajax({
+                url: 'single.php?p=' + pid,
+                cache: false,
+                success: function (returnData) {
+                    $('#content').html(returnData);
+                }
+            });
         }
         function display_loading() {
             // .... 其他指令
@@ -49,12 +73,13 @@
             } else {
                 window.addEventListener('load', display_loading, false);
             }
-            loadIndexPage();
+            $('#home-link').click(loadIndexPage());
         })
     </script>
 </head>
 <body>
 <script>
+    //    loadIndexPage();
 </script>
 <div id="app" class="App App--index affix">
     <div id="app-navigation" class="App-navigation">
@@ -70,7 +95,7 @@
             </div>
             <div class="container">
                 <h1 class="Header-title">
-                    <a id="home-link" onclick="loadIndexPage()">
+                    <a id="home-link">
                         JNU-ACM Club::Home
                     </a>
                 </h1>
