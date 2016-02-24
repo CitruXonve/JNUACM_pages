@@ -9,6 +9,7 @@ require_once "include/lib.php";
 
 ?>
 <script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+<script src="./js/md5.js"></script>
 <script type="text/javascript">
     function xmlhttpload_get(source,id){
         var xmlhttp;

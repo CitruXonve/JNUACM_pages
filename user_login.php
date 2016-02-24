@@ -44,7 +44,7 @@ $user_login = $parsed_url['login'];
 $user_pwd = $parsed_url['pwd'];
 
 $da = new DataAccess();
-$cnt = $da->dosql("SELECT * FROM users WHERE user_login='$user_login' AND user_pass='$user_pwd';");
+$cnt = $da->dosql("SELECT * FROM users WHERE user_login='$user_login' AND user_pass='$user_pwd' OR user_email='$user_login' AND user_pass='$user_pwd';");
 //echo "SELECT * FROM users WHERE user_login='$user_login' AND user_pass='$user_pwd';";
 session_start();
 //session_reset();

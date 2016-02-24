@@ -1463,7 +1463,6 @@ a.Button.disabled, fieldset[disabled] a.Button {
 
 .Form--centered .FormControl[type=text], .Form--centered .FormControl[type=email], .Form--centered .FormControl[type=password], .Form--centered .Button {
     margin: 0 auto;
-    text-align: center;
     height: 50px;
     padding: 15px 20px;
     font-size: 15px
