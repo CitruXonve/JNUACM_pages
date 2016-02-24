@@ -48,6 +48,15 @@ function parseDate($str)
 }
 
 ?>
+<script type="text/javascript">
+    $('.item-read-more').each(function () {
+        $(this).click(function (evt) {
+            evt.preventDefault();
+//                            alert($(this).attr('id'));
+            loadSinglePost($(this).attr('id'));
+        })
+    })
+</script>
 <div class="IndexPage-toolbar"></div>
 <div class="DiscussionList">
 

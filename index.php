@@ -10,7 +10,23 @@
     require_once "header.php";
     ?>
     <script type="text/javascript">
+        function loadMainPage() {
+            $.ajax({
+                url: 'main.php',
+                cache: false,
+                success: function (returnData) {
+                    $('#content').html(returnData);
 
+                    /*$('.item-read-more').each(function () {
+                        $(this).click(function (evt) {
+                            evt.preventDefault();
+//                            alert($(this).attr('id'));
+                            loadSinglePost($(this).attr('id'));
+                        })
+                    })*/
+                }
+            });
+        }
         function loadSinglePost(pid) {
             //xmlhttpload_get("single.php?p=" + pid, "content");
             $.ajax({
@@ -25,6 +41,8 @@
             // .... 其他指令
             _oTag = document.getElementById("model");
             _oTag.style.display = "none"; // hide it.
+            _oTag = document.getElementById("modal-loading");
+            _oTag.style.display = "none"; // hide it.
         }
         $(document).ready(function () {
             if (window.attachEvent) {
@@ -32,7 +50,7 @@
             } else {
                 window.addEventListener('load', display_loading, false);
             }
-            $('#home-link').click(function(evt){
+            $('#home-link').click(function (evt) {
                 evt.preventDefault();
                 loadMainPage();
             })
@@ -41,7 +59,7 @@
 </head>
 <body>
 <script>
-//    loadMainPage();
+    loadMainPage();
 </script>
 <div id="app" class="App App--index affix">
     <div id="app-navigation" class="App-navigation">
@@ -71,12 +89,11 @@
                 </div>
                 <div id="header-secondary" class="Header-secondary">
                     <?php
-                        if (isset($_SESSION['timestamp'])){
-                            include_once "user_controls.php";
-                        }
-                        else{
-                            include_once "anonymous_controls.php";
-                        }
+                    if (isset($_SESSION['timestamp'])) {
+                        include_once "user_controls.php";
+                    } else {
+                        include_once "anonymous_controls.php";
+                    }
                     ?>
                 </div>
             </div>
@@ -94,8 +111,13 @@
     include_once "footer.php"
     ?>
 </div>
-<?php
-include_once "loading.html"
-?>
+<div id="model">
+    <div class="ModalManager modal fade in"
+         style="display: block;position: fixed;top: 0;right: 0;bottom: 0;left: 0;overflow: hidden;background-color: rgba(170, 170, 170, 0.901961);">
+        <?php
+        include_once "loading.html"
+        ?>
+    </div>
+</div>
 </body>
 </html>
