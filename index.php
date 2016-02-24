@@ -10,6 +10,26 @@
     require_once "header.php";
     ?>
     <script type="text/javascript">
+        function loadControls(){
+            if (<?php echo (isset($_SESSION['timestamp']))?'true':'false';?>){
+                $.ajax({
+                    url: 'user_controls.php',
+                    cache: false,
+                    success: function (returnData) {
+                        $('#header-secondary').html(returnData);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: 'anonymous_controls.php',
+                    cache: false,
+                    success: function (returnData) {
+                        $('#header-secondary').html(returnData);
+                    }
+                });
+            }
+        }
         function loadMainPage() {
             $.ajax({
                 url: 'main.php',
@@ -59,6 +79,7 @@
 </head>
 <body>
 <script>
+    loadControls();
     loadMainPage();
 </script>
 <div id="app" class="App App--index affix">
@@ -88,13 +109,6 @@
                     <ul class="Header-controls"></ul>
                 </div>
                 <div id="header-secondary" class="Header-secondary">
-                    <?php
-                    if (isset($_SESSION['timestamp'])) {
-                        include_once "user_controls.php";
-                    } else {
-                        include_once "anonymous_controls.php";
-                    }
-                    ?>
                 </div>
             </div>
         </header>
@@ -114,6 +128,7 @@
 <div id="model">
     <div class="ModalManager modal fade in"
          style="display: block;position: fixed;top: 0;right: 0;bottom: 0;left: 0;overflow: hidden;background-color: rgba(170, 170, 170, 0.901961);">
+        <div id="model-manager"></div>
         <?php
         include_once "loading.html"
         ?>
