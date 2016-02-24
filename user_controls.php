@@ -14,6 +14,34 @@ $da->dosql("select * from users WHERE ID='" . $_SESSION['user_id'] . "';");
 $col = $da->rtnres();
 //echo "select * from users WHERE user_login='".$_SESSION['username']."';";
 ?>
+<script type="text/javascript">
+    function switch_open(evt,attr_name){
+        var cl=evt.attr(attr_name);
+        if (cl.indexOf(' open')>=0)
+            cl=cl.replace(/ open/g,'');
+        else
+            cl=cl+' open';
+        evt.attr(attr_name,cl);
+    }
+    function  switch_true(evt,attr_name){
+        evt.attr(attr_name,(evt.attr(attr_name)=='true'?false:true));
+    }
+    $('#Dropdown-button').click(function(){
+//        alert($(this).parent().attr('class'));
+        switch_open($(this).parent(),'class');
+        switch_true($(this),'aria-expanded')
+//        alert($(this).parent().attr('class'));
+    })
+    $('#log-out-button').click(function(){
+        $.ajax({
+            url: 'user_logout.php',
+            cache: false,
+            success: function (returnData) {
+                location.reload();
+            }
+        })
+    })
+</script>
 <ul class="Header-controls">
     <li class="item-search">
         <div class="Search ">
@@ -35,7 +63,7 @@ $col = $da->rtnres();
     </li>
     <li class="item-session">
         <div class="ButtonGroup Dropdown dropdown SessionDropdown itemCount4">
-            <button class="Dropdown-toggle Button Button--user Button--flat" data-toggle="dropdown"
+            <button id="Dropdown-button" class="Dropdown-toggle Button Button--user Button--flat" data-toggle="dropdown"
                     aria-expanded="false">
                 <img class="Avatar " src="<?php echo $col['user_avatar']; ?>">
                 <span class="Button-label">
@@ -55,10 +83,10 @@ $col = $da->rtnres();
                 </li>
                 <li class="Dropdown-separator"></li>
                 <li class="item-logOut">
-                    <button class=" hasIcon" type="button">
+                    <a id='log-out-button' class=" hasIcon" type="button">
                         <i class="icon fa fa-fw fa-sign-out Button-icon"></i>
                         <span class="Button-label">Log Out</span>
-                    </button>
+                    </a>
                 </li>
             </ul>
         </div>

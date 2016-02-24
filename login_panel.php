@@ -8,7 +8,7 @@
 include_once "header.php";
 ?>
 <script type="text/javascript">
-    $('#login-panel-close').click(function(evt){
+    $('#login-panel-close').click(function (evt) {
         evt.preventDefault();
         _oTag = document.getElementById("model-manager");
         _oTag.style.display = "none"; // hide it.
@@ -37,7 +37,53 @@ include_once "header.php";
                     </div>
                     <div class="Form-group">
                         <button type="submit" class="Button Button--primary Button--block">
-                            <span class="Button-label">Log In</span></button>
+                            <span class="Button-label">Log In</span>     <div class="LoadingIndicator LoadingIndicator--inline">
+                                <div role="progressbar"
+                                     style="position: absolute; width: 0px; z-index: auto; left: 50%; top: 50%;"
+                                     class="spinner">
+                                    <div
+                                        style="position: absolute; top: -1px; opacity: 0.25; animation: 1s linear 0s normal none infinite running opacity-100-25-0-8;">
+                                        <div
+                                            style="position: absolute; width: 4px; height: 2px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1); transform-origin: left center 0px; transform: rotate(0deg) translate(3px, 0px); border-radius: 1px;"></div>
+                                    </div>
+                                    <div
+                                        style="position: absolute; top: -1px; opacity: 0.25; animation: 1s linear 0s normal none infinite running opacity-100-25-1-8;">
+                                        <div
+                                            style="position: absolute; width: 4px; height: 2px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1); transform-origin: left center 0px; transform: rotate(45deg) translate(3px, 0px); border-radius: 1px;"></div>
+                                    </div>
+                                    <div
+                                        style="position: absolute; top: -1px; opacity: 0.25; animation: 1s linear 0s normal none infinite running opacity-100-25-2-8;">
+                                        <div
+                                            style="position: absolute; width: 4px; height: 2px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1); transform-origin: left center 0px; transform: rotate(90deg) translate(3px, 0px); border-radius: 1px;"></div>
+                                    </div>
+                                    <div
+                                        style="position: absolute; top: -1px; opacity: 0.25; animation: 1s linear 0s normal none infinite running opacity-100-25-3-8;">
+                                        <div
+                                            style="position: absolute; width: 4px; height: 2px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1); transform-origin: left center 0px; transform: rotate(135deg) translate(3px, 0px); border-radius: 1px;"></div>
+                                    </div>
+                                    <div
+                                        style="position: absolute; top: -1px; opacity: 0.25; animation: 1s linear 0s normal none infinite running opacity-100-25-4-8;">
+                                        <div
+                                            style="position: absolute; width: 4px; height: 2px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1); transform-origin: left center 0px; transform: rotate(180deg) translate(3px, 0px); border-radius: 1px;"></div>
+                                    </div>
+                                    <div
+                                        style="position: absolute; top: -1px; opacity: 0.25; animation: 1s linear 0s normal none infinite running opacity-100-25-5-8;">
+                                        <div
+                                            style="position: absolute; width: 4px; height: 2px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1); transform-origin: left center 0px; transform: rotate(225deg) translate(3px, 0px); border-radius: 1px;"></div>
+                                    </div>
+                                    <div
+                                        style="position: absolute; top: -1px; opacity: 0.25; animation: 1s linear 0s normal none infinite running opacity-100-25-6-8;">
+                                        <div
+                                            style="position: absolute; width: 4px; height: 2px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1); transform-origin: left center 0px; transform: rotate(270deg) translate(3px, 0px); border-radius: 1px;"></div>
+                                    </div>
+                                    <div
+                                        style="position: absolute; top: -1px; opacity: 0.25; animation: 1s linear 0s normal none infinite running opacity-100-25-7-8;">
+                                        <div
+                                            style="position: absolute; width: 4px; height: 2px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1); transform-origin: left center 0px; transform: rotate(315deg) translate(3px, 0px); border-radius: 1px;"></div>
+                                    </div>
+                                </div>
+                                </div>
+                        </button>
                     </div>
                 </div>
             </div>

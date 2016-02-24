@@ -10,25 +10,37 @@
     require_once "header.php";
     ?>
     <script type="text/javascript">
-        function loadControls(){
-            if (<?php echo (isset($_SESSION['timestamp']))?'true':'false';?>){
-                $.ajax({
-                    url: 'user_controls.php',
-                    cache: false,
-                    success: function (returnData) {
-                        $('#header-secondary').html(returnData);
+        function loadControls() {
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: 'user_verify.php',
+                cache: false,
+                success: function (res) {
+//                    alert(res.result);
+//                    var returnData = eval('(' + res + ')');
+//                    alert(eval('(' + res + ')'));
+                    if (res.result) {
+                        $.ajax({
+                            url: 'user_controls.php',
+                            cache: false,
+                            success: function (returnData) {
+                                $('#header-secondary').html(returnData);
+                            }
+                        });
                     }
-                });
-            }
-            else{
-                $.ajax({
-                    url: 'anonymous_controls.php',
-                    cache: false,
-                    success: function (returnData) {
-                        $('#header-secondary').html(returnData);
+                    else {
+                        $.ajax({
+                            url: 'anonymous_controls.php',
+                            cache: false,
+                            success: function (returnData) {
+                                $('#header-secondary').html(returnData);
+                            }
+                        });
                     }
-                });
-            }
+                }
+            });
+
         }
         function loadMainPage() {
             $.ajax({
@@ -38,12 +50,12 @@
                     $('#content').html(returnData);
 
                     /*$('.item-read-more').each(function () {
-                        $(this).click(function (evt) {
-                            evt.preventDefault();
-//                            alert($(this).attr('id'));
-                            loadSinglePost($(this).attr('id'));
-                        })
-                    })*/
+                     $(this).click(function (evt) {
+                     evt.preventDefault();
+                     //                            alert($(this).attr('id'));
+                     loadSinglePost($(this).attr('id'));
+                     })
+                     })*/
                 }
             });
         }
