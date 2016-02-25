@@ -69,6 +69,21 @@ include_once "header.php";
             }
         });
     })
+    $('#item-signUp-label').click(function (evt) {
+        evt.preventDefault();
+//        alert('click1');
+        $.ajax({
+            url: 'signup_panel.php',
+            cache: false,
+            success: function (returnData) {
+                $('#model-manager').html(returnData);
+                _oTag = document.getElementById("model-manager");
+                _oTag.style.display = "block"; // reveal it.
+                _oTag = document.getElementById("model");
+                _oTag.style.display = ""; // reveal it.
+            }
+        });
+    })
 </script>
 <ul class="Header-controls">
     <li class="item-search">
@@ -79,7 +94,7 @@ include_once "header.php";
         </div>
     </li>
     <li class="item-signUp">
-        <button class="Button Button--link" type="button"><span class="Button-label">Sign Up</span>
+        <button id="item-signUp-label" class="Button Button--link" type="button"><span class="Button-label">Sign Up</span>
         </button>
     </li>
     <li class="item-logIn">
