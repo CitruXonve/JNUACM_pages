@@ -1,4 +1,4 @@
-@import url(https://cdn.rawgit.com/barberboy/open-sans/2011-02-02/open-sans.css);
+/*@import url(https://cdn.rawgit.com/barberboy/open-sans/2011-02-02/open-sans.css);*/
 
 /*!
  *  Font Awesome 4.4.0 by @davegandy - http://fontawesome.io - @fontawesome
@@ -31,7 +31,7 @@
 
 #date_time {
     width: 100%;
-    font-family: "Open Sans";
+    font-family: MyCustomFont;
 }
 
 /*end*/
@@ -1895,14 +1895,14 @@ textarea.FormControl {
 
 @media (min-width: 768px) {
     .Search.focused {
-        margin-left: -400px;
+        margin-left: -300px;
         -webkit-transition: all .4s;
         -o-transition: all .4s;
         transition: all .4s
     }
 
     .Search.focused input, .Search.focused .Search-results {
-        width: 400px
+        width: 300px
     }
 }
 

@@ -71,10 +71,10 @@
         }
         function display_loading() {
             // .... 其他指令
-            _oTag = document.getElementById("model");
+            /*_oTag = document.getElementById("model");
             _oTag.style.display = "none"; // hide it.
             _oTag = document.getElementById("modal-loading");
-            _oTag.style.display = "none"; // hide it.
+            _oTag.style.display = "none"; // hide it.*/
         }
         $(document).ready(function () {
             if (window.attachEvent) {
@@ -128,7 +128,9 @@
 
     <main class="App-content">
         <div id="content">
-
+            <?php
+            include_once "loading.html"
+            ?>
         </div>
     </main>
 
@@ -137,13 +139,10 @@
     include_once "footer.php"
     ?>
 </div>
-<div id="model">
+<div id="model" style="display: none;">
     <div class="ModalManager modal fade in"
          style="display: block;position: fixed;top: 0;right: 0;bottom: 0;left: 0;overflow: hidden;background-color: rgba(170, 170, 170, 0.901961);">
         <div id="model-manager"></div>
-        <?php
-        include_once "loading.html"
-        ?>
     </div>
 </div>
 </body>
