@@ -1769,7 +1769,7 @@ textarea.FormControl {
 
 @media (min-width: 768px) {
     .Modal {
-        margin: 120px auto
+        margin: 50px auto
     }
 
     .Modal-close {

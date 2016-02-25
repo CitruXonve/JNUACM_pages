@@ -27,9 +27,9 @@ include_once "header.php";
             },
             success: function (returnData) {
                 if (returnData.result == true)
-                    $('.Button-label').html('Success! Please wait...');
+                    $('.Button-submit-login').html('Success! Please wait...');
                 else
-                    $('.Button-label').html('Logging in failed!');
+                    $('.Button-submit-login').html('Logging in failed!');
                 setTimeout("location.reload()", 1000);
             }
         });
@@ -48,9 +48,9 @@ include_once "header.php";
      },
      success: function (returnData) {
      if (returnData.result == true)
-     $('.Button-label').html('Success! Please wait...');
+     $('.Button-submit-login').html('Success! Please wait...');
      else
-     $('.Button-label').html('Logging in failed!');
+     $('.Button-submit-login').html('Logging in failed!');
      location.reload();
      }
      });
@@ -71,14 +71,14 @@ include_once "header.php";
                 <div class="LogInButtons"></div>
                 <div class="Form Form--centered">
                     <div class="Form-group">
-                        <input placeholder="Username or Email" name="login" class="FormControl" type="text">
+                        <input placeholder="Username or Email" name="login" class="FormControl" type="text" required="required">
                     </div>
                     <div class="Form-group">
-                        <input placeholder="Password" name="pwd" class="FormControl" type="password">
+                        <input placeholder="Password" name="pwd" class="FormControl" type="password" required="required">
                     </div>
                     <div class="Form-group">
                         <button type="submit" class="Button Button--primary Button--block">
-                            <span class="Button-label">Log In</span>
+                            <span class="Button-submit-login">Log In</span>
                             <img id="login-verifying" src="./assets/pic/u=2045248104,1139323035&fm=21&gp=0.gif"
                                  width="15px" height="15px" style="display: none">
                         </button>
