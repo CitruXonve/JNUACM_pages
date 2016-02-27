@@ -50,19 +50,6 @@ function parseDate($str)
         return 'on ' . $before->format('Y/m/d');
 }
 
-function convertUrlQuery($query)
-{
-    $queryParts = explode('?', $query);
-
-    $params = array();
-    foreach ($queryParts as $param) {
-        $item = explode('=', $param);
-        $params[$item[0]] = $item[1];
-    }
-
-    return $params;
-}
-
 function formatDatetimeInto($datetime, $str)
 {
     return (new DateTime($datetime))->format($str);
@@ -77,20 +64,6 @@ function debug()
     echo "|";
 }
 
-//php获取当前访问的完整url地址
-function GetCurUrl()
-{
-    $url = 'http://';
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-        $url = 'https://';
-    }
-    if ($_SERVER['SERVER_PORT'] != '80') {
-        $url .= $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'];
-    } else {
-        $url .= $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-    }
-    return $url;
-}
 $parsed_url = parse_url(GetCurUrl(), PHP_URL_QUERY);
 preg_match('([0-9]+)', convertUrlQuery($parsed_url)['p'], $matches);
 $pid = $matches[0];
