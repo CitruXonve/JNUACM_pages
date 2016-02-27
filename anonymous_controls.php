@@ -10,12 +10,14 @@ include_once "header.php";
 <script type="text/javascript">
     function set_on(evt, attr_name,attr_var) {
         var cl = evt.attr(attr_name);
+        if (!cl) return;
         if (cl.indexOf(attr_var) < 0)
             cl = cl + attr_var;
         evt.attr(attr_name, cl);
     }
     function set_off(evt, attr_name,attr_var,regex) {
         var cl = evt.attr(attr_name);
+        if (!cl) return;
         if (cl.indexOf(attr_var) >= 0)
             cl = cl.replace(regex, '');
         evt.attr(attr_name, cl);
