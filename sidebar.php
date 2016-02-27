@@ -25,17 +25,17 @@ $da = new DataAccess();
             </button>
             <ul class="Dropdown-menu dropdown-menu ">
                 <li class="item-allDiscussions active">
-                    <a href="" active="true" class=" hasIcon" type="button">
+                    <a active="true" class=" hasIcon" type="button">
                         <i class="icon fa fa-fw fa-comments-o Button-icon"></i>
                         <span class="Button-label">All Posts</span></a></li>
                 <li class="item-following">
-                    <a href="" active="false" class=" hasIcon" type="button">
+                    <a active="false" class=" hasIcon" type="button">
                         <i class="icon fa fa-fw fa-star Button-icon"></i>
                         <span class="Button-label">Spotlight</span>
                     </a>
                 </li>
                 <li class="item-tags">
-                    <a href="" active="false" class=" hasIcon" type="button">
+                    <a active="false" class=" hasIcon" type="button">
                         <i class="icon fa fa-fw fa-th-large Button-icon"></i>
                         <span class="Button-label">Tags</span>
                     </a>
