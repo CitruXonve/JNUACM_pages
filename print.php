@@ -1,67 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Contest Print Service</title>
-    <link rel="stylesheet" href="assets/forum.css">
-    <script src="js/action.js"></script>
-    <script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
-    <script type="text/javascript">
-    	function ClearContent() {
-    		document.getElementById('TeamNo').value = '';
-    		document.getElementById('CodeContent').value = '';
-	}
-	function SetCurrentDateTime() {
-		$(document.getElementById('date_time')).load('time.php');
-	}
-	$(document).ready(function(){
-	    setInterval(SetCurrentDateTime,1000);
-	});
-    </script>
-</head>
-<body>
-<script>
+<?php
+/**
+ * Created by PhpStorm.
+ * User: semprathlon
+ * Date: 2/24/16
+ * Time: 09:36
+ */
+include_once "header.php";
+?>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.get('user_verify.php', function (returnData) {
+            if (!returnData.result)
+                $('[id=DiscussionPageContainer]').html('Please log in and retry!');
+        })
+    });
+    $('#reset-button').click(function ClearContent() {
+        $('[id=TeamNo]').val('');
+        $('[id=CodeContent').val('');
+    });
 </script>
-<div id="app" class="App">
-    <div id="app-navigation" class="App-navigation"></div>
-    <div id="drawer" class="App-drawer">
-        <header id="header" class="App-header">
-            <div id="header-navigation" class="Header-navigation"></div>
+<div class="DiscussionPage">
+    <div class="DiscussionPage-discussion">
+        <header class="Hero DiscussionHero DiscussionHero--colored">
             <div class="container">
-                <h1 class="Header-title">
-                    <a>校园编程挑战赛</a>
-                </h1>
-
-                <div id="header-secondary" class="Header-secondary">
-                    <ul class="Header-controls">
-                        <li class="item-Help">
-                            <button class="Button Button--link" type="button"><span class="Button-label">Help</span>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="DiscussionHero-items">
+                    <li class="item-title"><h2 class="DiscussionHero-title">欢迎使用程序设计竞赛打印服务</h2></li>
+                </ul>
             </div>
         </header>
-    </div>
-
-    <main class="App-content">
-        <div id="content">
-            <div class="IndexPage">
-                <header class="Hero WelcomeHero">
-                    <div class="container">
-                        <div class="containerNarrow"><h2 class="Hero-title">欢迎使用程序设计竞赛打印服务</h2>
-                            <div class="Hero-subtitle"></div>
-                        </div>
-                    </div>
-                </header>
-
-                <div class="container">
-                    <div class="IndexPage-results  sideNavOffset">
-                        <div class="IndexPage-toolbar"></div>
-                        <div class="DiscussionList">
+        <div id="DiscussionPageContainer" class="container">
+            <nav class="DiscussionPage-nav"></nav>
+            <div class="PostStream">
+                <div class="PostStream-item" data-index="0" data-time="" data-number="1"
+                     data-id="1" style="display: block;">
+                    <article class="Post CommentPost Post--edited">
+                        <div>
                             <form name="submit" method="POST" action="write.php">
                                 <ul class="DiscussionList-discussions">
-                                    <li data-id="1">
+                                    <li>
                                         <div class="DiscussionListItem">
                                             <div class="DiscussionListItem-content Slidable-content" align="">
                                                 <ul class="DiscussionListItem-main">
@@ -85,27 +61,26 @@
                                                         </a>
                                                     </ul>
                                                 </ul>
-                                            <textarea id="CodeContent" cols=85 rows=15 name="CodeContent"
-                                            ></textarea>
+                                                <textarea id="CodeContent" rows="15" name="CodeContent"
+                                                          style="width: 100%;"></textarea>
                                                 <ul class="DiscussionListItem-main">
                                                 </ul>
                                             </div>
                                         </div>
 
                                         <div class="DiscussionListItem">
-                                            <div class="DiscussionListItem-content Slidable-content" align="center">
-                                                <ul class="DiscussionListItem-main">
-                                                    <ul class="DiscussionListItem-info">
-                                                        <button class="Button Button--primary IndexPage-newDiscussion hasIcon"
-                                                                itemclassname="App-primaryControl" type="submit"><i
-                                                                class="icon fa fa-fw fa-edit Button-icon"></i><span
-                                                                class="Button-label">Submit</span>
-                                                        </button>
-                                                        <button class="Button" onclick="ClearContent()"
-                                                                type="button"><span
-                                                                class="Button-label">Reset</span>
-                                                        </button>
-                                                    </ul>
+                                            <div class="DiscussionListItem-content Slidable-content"
+                                                 align="center">
+                                                <ul class="DiscussionListItem-info">
+                                                    <button
+                                                        class="Button Button--primary IndexPage-newDiscussion hasIcon"
+                                                        itemclassname="App-primaryControl" type="submit"><i
+                                                            class="icon fa fa-fw fa-edit Button-icon"></i><span
+                                                            class="Button-label">Submit</span>
+                                                    </button>
+                                                    <button id="reset-button" class="Button" type="button">
+                                                        <span class="Button-label">Reset</span>
+                                                    </button>
                                                 </ul>
                                             </div>
                                         </div>
@@ -114,33 +89,9 @@
                                 <div class="DiscussionList-loadMore"></div>
                             </form>
                         </div>
-                    </div>
+                    </article>
                 </div>
-
             </div>
         </div>
-    </main>
-
-    <br style="clear: both;">
-    <div id="footer" align="center">
-        <tbody>
-        <tr>
-            <td>
-                <span id="date_time">
-                    2016/01/01 00:00:00
-                </span>
-
-            </td>
-            <br>
-            <td style="padding:6px">
-                Jiangnan University - JNU-ACM Team<br>
-                Developer : <a href="mailto:Semprathlon@163.com"
-                               style="color: rgb(239, 125, 39)">Semprathlon</a>
-            </td>
-        </tr>
-        </tbody>
     </div>
-
 </div>
-</body>
-</html>

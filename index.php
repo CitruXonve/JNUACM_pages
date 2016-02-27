@@ -11,36 +11,18 @@
     ?>
     <script type="text/javascript">
         function loadControls() {
-            $.ajax({
-                type: 'GET',
-                dataType: 'json',
-                url: 'user_verify.php',
-                cache: false,
-                success: function (res) {
-//                    alert(res.result);
-//                    var returnData = eval('(' + res + ')');
-//                    alert(eval('(' + res + ')'));
-                    if (res.result) {
-                        $.ajax({
-                            url: 'user_controls.php',
-                            cache: false,
-                            success: function (returnData) {
-                                $('#header-secondary').html(returnData);
-                            }
-                        });
-                    }
-                    else {
-                        $.ajax({
-                            url: 'anonymous_controls.php',
-                            cache: false,
-                            success: function (returnData) {
-                                $('#header-secondary').html(returnData);
-                            }
-                        });
-                    }
+            $.get('user_verify.php', function (res) {
+                if (res.result) {
+                    $.get('user_controls.php', function (returnData) {
+                        $('#header-secondary').html(returnData);
+                    });
+                }
+                else {
+                    $.get('anonymous_controls.php', function (returnData) {
+                        $('#header-secondary').html(returnData);
+                    });
                 }
             });
-
         }
         function loadMainPage() {
             $.ajax({
@@ -72,19 +54,29 @@
         function display_loading() {
             // .... 其他指令
             /*_oTag = document.getElementById("model");
-            _oTag.style.display = "none"; // hide it.
-            _oTag = document.getElementById("modal-loading");
-            _oTag.style.display = "none"; // hide it.*/
+             _oTag.style.display = "none"; // hide it.
+             _oTag = document.getElementById("modal-loading");
+             _oTag.style.display = "none"; // hide it.*/
         }
         $(document).ready(function () {
-            if (window.attachEvent) {
-                window.attachEvent('onload', display_loading);
-            } else {
-                window.addEventListener('load', display_loading, false);
-            }
+            /*if (window.attachEvent) {
+             window.attachEvent('onload', display_loading);
+             } else {
+             window.addEventListener('load', display_loading, false);
+             }*/
             $('#home-link').click(function (evt) {
                 evt.preventDefault();
                 loadMainPage();
+            })
+            $('#print-link').click(function (evt) {
+                evt.preventDefault();
+                $.ajax({
+                    url: 'print.php',
+                    cache: false,
+                    success: function (returnData) {
+                        $('#content').html(returnData);
+                    }
+                });
             })
         });
     </script>
@@ -115,6 +107,11 @@
                 <h1 class="Header-title">
                     <a href="/swap/" id="home-link">
                         Swap
+                    </a>
+                </h1>
+                <h1 class="Header-title">
+                    <a id="print-link">
+                        PrintService
                     </a>
                 </h1>
                 <div id="header-primary" class="Header-primary">

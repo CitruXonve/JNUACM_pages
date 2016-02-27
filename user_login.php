@@ -9,34 +9,6 @@
 require_once "include/lib.php";
 header('Content-type: text/json');
 
-//php获取当前访问的完整url地址
-function GetCurUrl()
-{
-    $url = 'http://';
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-        $url = 'https://';
-    }
-    if ($_SERVER['SERVER_PORT'] != '80') {
-        $url .= $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'];
-    } else {
-        $url .= $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-    }
-    return $url;
-}
-
-function convertUrlQuery($query)
-{
-    $queryParts = explode('&', $query);
-
-    $params = array();
-    foreach ($queryParts as $param) {
-        $item = explode('=', $param);
-        $params[$item[0]] = $item[1];
-    }
-
-    return $params;
-}
-
 /*
 $parsed_url = convertUrlQuery(parse_url(GetCurUrl(), PHP_URL_QUERY));
 //echo $parsed_url['login'].','.$parsed_url['pwd'];
@@ -46,9 +18,9 @@ $user_pwd = $parsed_url['pwd'];
 */
 
 if ($_POST['login'])
-    $user_login=$_POST['login'];
+    $user_login = $_POST['login'];
 if ($_POST['pwd'])
-    $user_pwd=$_POST['pwd'];
+    $user_pwd = $_POST['pwd'];
 
 $da = new DataAccess();
 $cnt = $da->dosql("SELECT * FROM users WHERE user_login='$user_login' AND user_pass='$user_pwd' OR user_email='$user_login' AND user_pass='$user_pwd';");
@@ -66,7 +38,8 @@ if ($cnt != 1) {
         session_destroy();
     }*/
 
-    die(json_encode(array(/*'login'=>$_POST['login'],'pwd'=>$_POST['pwd'],*/'result' => false)));
+    die(json_encode(array(/*'login'=>$_POST['login'],'pwd'=>$_POST['pwd'],*/
+        'result' => false)));
 } else {
     $_SESSION['user_id'] = $da->rtnrlt(0)['ID'];
     $_SESSION['username'] = $da->rtnrlt(0)['user_login'];
