@@ -7,53 +7,6 @@
  */
 require_once "header.php";
 $da = new DataAccess();
-function parseContent($str)
-{
-    $read_more = '<!--more-->';
-
-    return $str;
-}
-
-function has_read_more_tag($str)
-{
-    $read_more = '<!--more-->';
-    $pos = strpos($str, $read_more);
-    if ($pos === false)
-        return false;
-    else
-        return true;
-}
-
-function parseDate($str)
-{
-    $day = 864e5;
-    $before = new DateTime($str);
-    $now = new DateTime();
-    $dif = $before->diff($now);
-    if (abs($dif->days) < 1 && abs($dif->h) < 1 && abs($dif->i) < 1)
-        return 'a minute ago';
-    else if (abs($dif->days) < 1 && abs($dif->h) < 1)
-        return $dif->format('i') . 'minutes ago';
-    else if (abs($dif->days) < 1 && abs($dif->h) < 2)
-        return 'an hour ago';
-    else if (abs($dif->days) < 1)
-        return $dif->format('%h') . 'hours ago';
-    else if (abs($dif->days) < 2)
-        return 'a day ago';
-    else if (abs($dif->days) < 30)
-        return $dif->format('%d') . ' days ago';
-    else if (abs($dif->days) < 60)
-        return 'a month ago';
-    else if (abs($dif->days) < 210)
-        return $dif->format('%m') . 'months ago';
-    else
-        return 'on ' . $before->format('Y/m/d');
-}
-
-function formatDatetimeInto($datetime, $str)
-{
-    return (new DateTime($datetime))->format($str);
-}
 
 function debug()
 {
@@ -182,7 +135,7 @@ if ($a_cnt<1)
                                 </header>
                                 <div class="Post-body">
                                     <?php
-                                    echo parseContent($row['content']);
+                                    echo parseContent_full($row['content']);
                                     ?>
                                 </div>
                                 <aside class="Post-actions" style="display: none;">

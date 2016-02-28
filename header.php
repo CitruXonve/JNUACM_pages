@@ -34,11 +34,100 @@ function convertUrlQuery($query)
     return $params;
 }
 
+function parseContent_full($str)
+{
+    $read_more = '<!--more-->';
+
+    return $str;
+}
+function parseContent($str)
+{
+    $read_more = '<!--more-->';
+    $pos = strpos($str, $read_more);
+    if ($pos === false)
+        return $str;
+    else
+        return substr($str, 0, $pos);
+}
+
+function has_read_more_tag($str)
+{
+    $read_more = '<!--more-->';
+    $pos = strpos($str, $read_more);
+    if ($pos === false)
+        return false;
+    else
+        return true;
+}
+
+function parseDate($str)
+{
+    $before = new DateTime($str);
+    $now = new DateTime();
+    $dif = $before->diff($now);
+    if (abs($dif->days) < 1 && abs($dif->h) < 1 && abs($dif->i) < 1)
+        return 'a minute ago';
+    else if (abs($dif->days) < 1 && abs($dif->h) < 1)
+        return $dif->format('i') . 'minutes ago';
+    else if (abs($dif->days) < 1 && abs($dif->h) < 2)
+        return 'an hour ago';
+    else if (abs($dif->days) < 1)
+        return $dif->format('%h') . 'hours ago';
+    else if (abs($dif->days) < 2)
+        return 'a day ago';
+    else if (abs($dif->days) < 30)
+        return $dif->format('%d') . ' days ago';
+    else if (abs($dif->days) < 60)
+        return 'a month ago';
+    else if (abs($dif->days) < 210)
+        return $dif->format('%m') . 'months ago';
+    else
+        return 'on ' . $before->format('Y/m/d');
+}
+
+function formatDatetimeInto($datetime, $str)
+{
+    return (new DateTime($datetime))->format($str);
+}
+
 ?>
 <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/jquery.form/3.51/jquery.form.js"></script>
 <script src="./js/md5.js"></script>
 <script type="text/javascript">
+    function set_on(evt, attr_name,attr_var) {
+        var cl = evt.attr(attr_name);
+        if (!cl) return;
+        if (cl.indexOf(attr_var) < 0)
+            cl = cl + attr_var;
+        evt.attr(attr_name, cl);
+    }
+    function set_off(evt, attr_name,attr_var,regex) {
+        var cl = evt.attr(attr_name);
+        if (!cl) return;
+        if (cl.indexOf(attr_var) >= 0)
+            cl = cl.replace(regex, '');
+        evt.attr(attr_name, cl);
+    }
+    function switch_open(evt, attr_name,attr_var,regex) {
+        var cl = evt.attr(attr_name);
+        if (cl.indexOf(attr_var) >= 0)
+            cl = cl.replace(regex, '');
+        else
+            cl = cl + attr_var;
+        evt.attr(attr_name, cl);
+    }
+    function switch_true(evt, attr_name) {
+        evt.attr(attr_name, (evt.attr(attr_name) == 'true' ? false : true));
+    }
+    function activate(evt) {
+        set_on(evt, 'class', ' active');
+    }
+    function deactivate_all() {
+        $('li').each(function () {
+            set_off($(this), 'class', ' active', / active/g);
+        })
+    }
     /*function user_verify() {
         var fun = function (returnData) {
             if (returnData.result)

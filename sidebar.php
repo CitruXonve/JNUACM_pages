@@ -9,28 +9,6 @@ require_once "header.php";
 $da = new DataAccess();
 ?>
 <script>
-    function set_on(evt, attr_name, attr_var) {
-        var cl = evt.attr(attr_name);
-        if (!cl) return;
-        if (cl.indexOf(attr_var) < 0)
-            cl = cl + attr_var;
-        evt.attr(attr_name, cl);
-    }
-    function set_off(evt, attr_name, attr_var, regex) {
-        var cl = evt.attr(attr_name);
-        if (!cl) return;
-        if (cl.indexOf(attr_var) >= 0)
-            cl = cl.replace(regex, '');
-        evt.attr(attr_name, cl);
-    }
-    function deactivate_all() {
-        $('li').each(function () {
-            set_off($(this), 'class', ' active', / active/g);
-        })
-    }
-    function activate(evt) {
-        set_on(evt, 'class', ' active');
-    }
     $('.item-allDiscussions').click(function () {
         deactivate_all();
         activate($(this));

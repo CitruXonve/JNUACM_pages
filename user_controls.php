@@ -15,31 +15,6 @@ $col = $da->rtnres();
 //echo "select * from users WHERE user_login='".$_SESSION['username']."';";
 ?>
 <script type="text/javascript">
-    function set_on(evt, attr_name,attr_var) {
-        var cl = evt.attr(attr_name);
-        if (!cl) return;
-        if (cl.indexOf(attr_var) < 0)
-            cl = cl + attr_var;
-        evt.attr(attr_name, cl);
-    }
-    function set_off(evt, attr_name,attr_var,regex) {
-        var cl = evt.attr(attr_name);
-        if (!cl) return;
-        if (cl.indexOf(attr_var) >= 0)
-            cl = cl.replace(regex, '');
-        evt.attr(attr_name, cl);
-    }
-    function switch_open(evt, attr_name,attr_var,regex) {
-        var cl = evt.attr(attr_name);
-        if (cl.indexOf(attr_var) >= 0)
-            cl = cl.replace(regex, '');
-        else
-            cl = cl + attr_var;
-        evt.attr(attr_name, cl);
-    }
-    function switch_true(evt, attr_name) {
-        evt.attr(attr_name, (evt.attr(attr_name) == 'true' ? false : true));
-    }
     function switch_user_menu(handle) {
         switch_open(handle.parent(), 'class',' open',/ open/g);
         switch_true(handle, 'aria-expanded');
