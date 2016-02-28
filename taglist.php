@@ -1,6 +1,15 @@
 <?php
-require_once "header.php";
-$da = new DataAccess();
+
+require_once 'header.php';
+
+$parsed_url = convertUrlQuery(parse_url(GetCurUrl(), PHP_URL_QUERY));
+
+if (!preg_match('/^([0-9]+)/', $parsed_url['tid'],$matches))
+    die('Wrong parameters!');
+$tid=$matches[0];
+//echo $pid;
+
+$da=new DataAccess();
 function parseContent($str)
 {
     $read_more = '<!--more-->';
@@ -63,7 +72,7 @@ function parseDate($str)
     <ul class="DiscussionList-discussions">
         <?php
         //load the list of articles
-        $a_cnt = $da->dosql("SELECT * FROM posts order by pid desc");
+        $a_cnt = $da->dosql("SELECT posts.* FROM tags RIGHT JOIN posts_tags on tags.tid=posts_tags.tid RIGHT JOIN posts on posts.pid=posts_tags.pid  where tags.tid=".$tid);
         if ($a_cnt<1)
             die("Sorry,nothing to display!");
         while ($row = $da->rtnres()) {

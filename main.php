@@ -5,7 +5,20 @@
  * Date: 2/22/16
  * Time: 10:35
  */
+include_once 'header.php';
 ?>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.get('loading.html', function (returnData) {
+            $('[id=IndexPage-list]').html(returnData);
+        });
+        setTimeout(function () {
+            $.get('list.php', function (returnData) {
+                $('[id=IndexPage-list]').html(returnData);
+            });
+        }, 1000);
+    });
+</script>
 <div class="IndexPage">
     <header class="Hero WelcomeHero">
         <div class="container">
@@ -21,9 +34,6 @@
             ?>
         </nav>
         <div id="IndexPage-list" class="IndexPage-results  sideNavOffset">
-            <?php
-            include_once "list.php";
-            ?>
         </div>
     </div>
 </div>

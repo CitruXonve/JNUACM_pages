@@ -50,19 +50,6 @@ function parseDate($str)
         return 'on ' . $before->format('Y/m/d');
 }
 
-function convertUrlQuery($query)
-{
-    $queryParts = explode('?', $query);
-
-    $params = array();
-    foreach ($queryParts as $param) {
-        $item = explode('=', $param);
-        $params[$item[0]] = $item[1];
-    }
-
-    return $params;
-}
-
 function formatDatetimeInto($datetime, $str)
 {
     return (new DateTime($datetime))->format($str);
@@ -77,27 +64,23 @@ function debug()
     echo "|";
 }
 
-//php获取当前访问的完整url地址
-function GetCurUrl()
-{
-    $url = 'http://';
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-        $url = 'https://';
-    }
-    if ($_SERVER['SERVER_PORT'] != '80') {
-        $url .= $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'];
-    } else {
-        $url .= $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-    }
-    return $url;
-}
 $parsed_url = parse_url(GetCurUrl(), PHP_URL_QUERY);
 preg_match('([0-9]+)', convertUrlQuery($parsed_url)['p'], $matches);
 $pid = $matches[0];
 //debug();
 
 $a_cnt = $da->dosql('SELECT * FROM posts where pid=' . "$pid");
+if ($a_cnt<1)
+    die("Sorry,nothing to display!");
 ?>
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('[id=display-loading]').attr('style','display:none;');
+            $('[id=display-discussion]').attr('style','');
+        },1000);
+    })
+</script>
 <div class="DiscussionPage">
     <div class="DiscussionPage-list"></div>
     <div class="DiscussionPage-discussion">
@@ -134,9 +117,15 @@ $a_cnt = $da->dosql('SELECT * FROM posts where pid=' . "$pid");
                 </ul>
             </div>
         </header>
+        <div class="container" id="display-loading">
+            <?php
+            include_once "loading.html";
+            ?>
+        </div>
         <div id="DiscussionPageContainer" class="container">
             <nav class="DiscussionPage-nav"></nav>
-            <div class="DiscussionPage-stream">
+
+            <div class="DiscussionPage-stream" id="display-discussion" style="display:none">
                 <div class="PostStream">
                     <div class="PostStream-item" data-index="0" data-time="" data-number="1"
                          data-id="1" style="display: block;">
