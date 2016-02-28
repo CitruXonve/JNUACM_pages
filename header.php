@@ -141,6 +141,10 @@ function getVerifyingRes(){
             set_off($(this), 'class', ' active', / active/g);
         })
     }
+    function switch_user_menu(handle) {
+        switch_open(handle.parent(), 'class',' open',/ open/g);
+        switch_true(handle, 'aria-expanded');
+    }
     /*function user_verify() {
         var fun = function (returnData) {
             if (returnData.result)

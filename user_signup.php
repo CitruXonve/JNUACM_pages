@@ -71,7 +71,8 @@ if (!preg_match('/.{6,16}/', $user_pwd))
 session_destroy();
 session_start();
 
-$da->dosql("insert users (user_login,user_nickname,user_email,user_pass) values('" . $user_login . "','" . $user_nick . "','" . $user_email . "','" . $user_pwd . "');");
+$now=new DateTime();
+$da->dosql("insert users (user_login,user_nickname,user_email,user_pass,user_registered) values('" . $user_login . "','" . $user_nick . "','" . $user_email . "','" . $user_pwd ."','".$now->format('Y-m-d H:i:s'). "');");
 
 $cnt = $da->dosql("SELECT ID FROM users WHERE user_login='" . $user_login . "';");
 if ($cnt != 1)
@@ -79,7 +80,7 @@ if ($cnt != 1)
 
 $_SESSION['user_id'] = $da->rtnrlt(0)['ID'];
 $_SESSION['username'] = $user_login;
-$_SESSION['timestamp'] = date_timestamp_get(new DateTime());
+$_SESSION['timestamp'] = date_timestamp_get($now);
 $da->dosql("UPDATE users SET last_login=" . $_SESSION['timestamp'] . " where ID=" . $_SESSION['user_id'] . ";");
 echo json_encode(array('result' => true));
 //    echo $_SESSION['username'];

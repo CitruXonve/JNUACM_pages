@@ -8,10 +8,6 @@
 include_once "header.php";
 ?>
 <script type="text/javascript">
-    function switch_user_menu(handle) {
-        switch_open(handle.parent(), 'class',' open',/ open/g);
-        switch_true(handle, 'aria-expanded');
-    }
     $('[placeholder="Search this site"]').focus(function () {
         if ($(this).val().length>0)
             set_on($(this).parent().parent(), 'class',' open');

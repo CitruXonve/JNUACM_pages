@@ -79,6 +79,12 @@
                 });
             })
         });
+        $(document).scroll(function () {
+            if ($(this).scrollTop()>0)
+                set_on($('[id=app]'),'class',' scrolled');
+            else
+                set_off($('[id=app]'),'class',' scrolled',/ scrolled/g);
+        })
     </script>
 </head>
 <body>

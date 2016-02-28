@@ -4,7 +4,7 @@ require_once 'header.php';
 
 $parsed_url = convertUrlQuery(parse_url(GetCurUrl(), PHP_URL_QUERY));
 
-if (!preg_match('/^([0-9]+)/', $parsed_url['tid'],$matches))
+if (!preg_match('/^([0-9]+)$/', $parsed_url['tid'],$matches))
     die('Wrong parameters!');
 $tid=$matches[0];
 //echo $pid;

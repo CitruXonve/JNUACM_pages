@@ -16,10 +16,6 @@ $col = $da->rtnres();
 //echo "select * from users WHERE user_login='".$_SESSION['username']."';";
 ?>
 <script type="text/javascript">
-    function switch_user_menu(handle) {
-        switch_open(handle.parent(), 'class',' open',/ open/g);
-        switch_true(handle, 'aria-expanded');
-    }
     $('#Dropdown-button').click(function () {
         switch_user_menu($(this))
     });
@@ -32,6 +28,16 @@ $col = $da->rtnres();
     $('[title=Notifications]').blur(function () {
         switch_user_menu($(this))
     });
+    $('.item-profile').click(function () {
+        $.get('user_profile.php', function (returnData) {
+            $('#content').html(returnData);
+        })
+    })
+    $('.item-settings').click(function () {
+        $.get('user_settings.php', function (returnData) {
+            $('#content').html(returnData);
+        })
+    })
     $('#log-out-button').click(function () {
         $.ajax({
             url: 'user_logout.php',
