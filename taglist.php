@@ -73,6 +73,8 @@ function parseDate($str)
         <?php
         //load the list of articles
         $a_cnt = $da->dosql("SELECT posts.* FROM tags RIGHT JOIN posts_tags on tags.tid=posts_tags.tid RIGHT JOIN posts on posts.pid=posts_tags.pid  where tags.tid=".$tid);
+        if ($a_cnt<1)
+            die("Sorry,nothing to display!");
         while ($row = $da->rtnres()) {
             $pid = $row['pid']; ?>
             <li data-id="<?php echo $pid ?>">

@@ -9,35 +9,47 @@ require_once "header.php";
 $da = new DataAccess();
 ?>
 <script>
-    function set_on(evt, attr_name,attr_var) {
+    function set_on(evt, attr_name, attr_var) {
         var cl = evt.attr(attr_name);
         if (!cl) return;
         if (cl.indexOf(attr_var) < 0)
             cl = cl + attr_var;
         evt.attr(attr_name, cl);
     }
-    function set_off(evt, attr_name,attr_var,regex) {
+    function set_off(evt, attr_name, attr_var, regex) {
         var cl = evt.attr(attr_name);
         if (!cl) return;
         if (cl.indexOf(attr_var) >= 0)
             cl = cl.replace(regex, '');
         evt.attr(attr_name, cl);
     }
-    function deactivate_all(){
-        $('li').each(function(){
-            set_off($(this),'class',' active',/ active/g);
+    function deactivate_all() {
+        $('li').each(function () {
+            set_off($(this), 'class', ' active', / active/g);
         })
     }
-    function activate(evt){
-        set_on(evt,'class',' open');
+    function activate(evt) {
+        set_on(evt, 'class', ' active');
     }
+    $('.item-allDiscussions').click(function () {
+        deactivate_all();
+        activate($(this));
+        $.get('loading.html', function (returnData) {
+            $('[id=IndexPage-list]').html(returnData);
+        });
+        setTimeout(function () {
+            $.get('list.php', function (returnData) {
+                $('[id=IndexPage-list]').html(returnData);
+            });
+        }, 1000);
+    })
 </script>
 <ul>
     <li class="item-newDiscussion App-primaryControl">
         <button class="Button Button--primary IndexPage-newDiscussion hasIcon"
                 itemclassname="App-primaryControl" type="button">
             <i class="icon fa fa-fw fa-edit Button-icon"></i>
-            <span class="Button-label">Something to write?</span> 
+            <span class="Button-label">Something to write?</span>
         </button>
     </li>
     <li class="item-nav">
@@ -74,9 +86,14 @@ $da = new DataAccess();
                         $('.item-tag<?php echo $row['tid'] ?> ').click(function () {
                             deactivate_all();
                             activate($(this));
-                            $.get('taglist.php?tid='+<?php echo $row['tid'] ?>, function (returnData) {
+                            $.get('loading.html', function (returnData) {
                                 $('[id=IndexPage-list]').html(returnData);
                             });
+                            setTimeout(function () {
+                                $.get('taglist.php?tid=' +<?php echo $row['tid'] ?>, function (returnData) {
+                                    $('[id=IndexPage-list]').html(returnData);
+                                });
+                            }, 1000);
                         })
                     </script>
                     <li class="item-tag<?php echo $row['tid'] ?> ">

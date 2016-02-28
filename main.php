@@ -8,10 +8,15 @@
 include_once 'header.php';
 ?>
 <script type="text/javascript">
-    $(document).ready(function(){
-       $.get('list.php',function(returnData){
-           $('[id=IndexPage-list]').html(returnData);
-       }); 
+    $(document).ready(function () {
+        $.get('loading.html', function (returnData) {
+            $('[id=IndexPage-list]').html(returnData);
+        });
+        setTimeout(function () {
+            $.get('list.php', function (returnData) {
+                $('[id=IndexPage-list]').html(returnData);
+            });
+        }, 1000);
     });
 </script>
 <div class="IndexPage">

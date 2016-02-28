@@ -70,7 +70,17 @@ $pid = $matches[0];
 //debug();
 
 $a_cnt = $da->dosql('SELECT * FROM posts where pid=' . "$pid");
+if ($a_cnt<1)
+    die("Sorry,nothing to display!");
 ?>
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('[id=display-loading]').attr('style','display:none;');
+            $('[id=display-discussion]').attr('style','');
+        },1000);
+    })
+</script>
 <div class="DiscussionPage">
     <div class="DiscussionPage-list"></div>
     <div class="DiscussionPage-discussion">
@@ -107,9 +117,15 @@ $a_cnt = $da->dosql('SELECT * FROM posts where pid=' . "$pid");
                 </ul>
             </div>
         </header>
+        <div class="container" id="display-loading">
+            <?php
+            include_once "loading.html";
+            ?>
+        </div>
         <div id="DiscussionPageContainer" class="container">
             <nav class="DiscussionPage-nav"></nav>
-            <div class="DiscussionPage-stream">
+
+            <div class="DiscussionPage-stream" id="display-discussion" style="display:none">
                 <div class="PostStream">
                     <div class="PostStream-item" data-index="0" data-time="" data-number="1"
                          data-id="1" style="display: block;">

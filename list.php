@@ -64,6 +64,8 @@ function parseDate($str)
         <?php
         //load the list of articles
         $a_cnt = $da->dosql("SELECT * FROM posts order by pid desc");
+        if ($a_cnt<1)
+            die("Sorry,nothing to display!");
         while ($row = $da->rtnres()) {
             $pid = $row['pid']; ?>
             <li data-id="<?php echo $pid ?>">
