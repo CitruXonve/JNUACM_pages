@@ -18,7 +18,8 @@ function debug()
 }
 
 $parsed_url = parse_url(GetCurUrl(), PHP_URL_QUERY);
-preg_match('([0-9]+)', convertUrlQuery($parsed_url)['p'], $matches);
+if (!preg_match('/^([0-9]+)/', convertUrlQuery($parsed_url)['p'], $matches))
+    die('Wrong parameters!');
 $pid = $matches[0];
 //debug();
 

@@ -90,6 +90,19 @@ function formatDatetimeInto($datetime, $str)
     return (new DateTime($datetime))->format($str);
 }
 
+function getVerifyingRes(){
+    session_start();
+    if (!isset($_SESSION['user_id'])||!isset($_SESSION['timestamp']))
+        return false;
+    $da=new DataAccess();
+    //echo "SELECT * FROM users WHERE ID=".$_SESSION['user_id']." AND last_login=".$_SESSION['timestamp'].";";
+    $cnt = $da->dosql("SELECT * FROM users WHERE ID=".$_SESSION['user_id']." AND last_login=".$_SESSION['timestamp'].";");
+    if ($cnt!=1)
+        return false;
+    else
+        return true;
+}
+
 ?>
 <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/jquery.form/3.51/jquery.form.js"></script>

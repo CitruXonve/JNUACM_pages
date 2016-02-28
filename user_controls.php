@@ -7,9 +7,10 @@
  */
 require_once "header.php";
 $da = new DataAccess();
-if (!isset($_SESSION['timestamp']))
+if (!getVerifyingRes())
     die("Not logged in!");
 
+session_start();
 $da->dosql("select * from users WHERE ID='" . $_SESSION['user_id'] . "';");
 $col = $da->rtnres();
 //echo "select * from users WHERE user_login='".$_SESSION['username']."';";
