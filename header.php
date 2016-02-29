@@ -68,11 +68,11 @@ function parseDate($str)
     if (abs($dif->days) < 1 && abs($dif->h) < 1 && abs($dif->i) < 1)
         return 'a minute ago';
     else if (abs($dif->days) < 1 && abs($dif->h) < 1)
-        return $dif->format('i') . 'minutes ago';
+        return $dif->format('i') . ' minutes ago';
     else if (abs($dif->days) < 1 && abs($dif->h) < 2)
         return 'an hour ago';
     else if (abs($dif->days) < 1)
-        return $dif->format('%h') . 'hours ago';
+        return $dif->format('%h') . ' hours ago';
     else if (abs($dif->days) < 2)
         return 'a day ago';
     else if (abs($dif->days) < 30)
@@ -80,7 +80,7 @@ function parseDate($str)
     else if (abs($dif->days) < 60)
         return 'a month ago';
     else if (abs($dif->days) < 210)
-        return $dif->format('%m') . 'months ago';
+        return $dif->format('%m') . ' months ago';
     else
         return 'on ' . $before->format('Y/m/d');
 }
@@ -106,6 +106,14 @@ function getVerifyingRes(){
 ?>
 <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/jquery.form/3.51/jquery.form.js"></script>
+<script src="//cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.js"></script>
+<script src="//cdn.bootcss.com/globalize/1.1.1/globalize.js"></script>
+<script src="js/vendor/jquery.ui.widget.js"></script>
+<script src="js/jquery.iframe-transport.js"></script>
+<script src="js/jquery.fileupload.js"></script>
+<!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
+<link rel="stylesheet" href="//cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.css">
+<link rel="stylesheet" href="./assets/jquery.fileupload.css">
 <script src="./js/md5.js"></script>
 <script type="text/javascript">
     function set_on(evt, attr_name,attr_var) {
@@ -132,6 +140,12 @@ function getVerifyingRes(){
     }
     function switch_true(evt, attr_name) {
         evt.attr(attr_name, (evt.attr(attr_name) == 'true' ? false : true));
+    }
+    function set_true(evt, attr_name) {
+        evt.attr(attr_name, true);
+    }
+    function set_false(evt, attr_name) {
+        evt.attr(attr_name, false);
     }
     function activate(evt) {
         set_on(evt, 'class', ' active');

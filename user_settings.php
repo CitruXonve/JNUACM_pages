@@ -9,16 +9,16 @@ require_once "header.php";
 $da = new DataAccess();
 session_start();
 
-    if (!getVerifyingRes())
-        die('Wrong parameters!');
-    else
-        $uid = $_SESSION['user_id'];
+if (!getVerifyingRes())
+    die('Wrong parameters!');
+else
+    $uid = $_SESSION['user_id'];
 //echo $uid;
 
-$u_cnt=$da->dosql("select * from users WHERE ID=" . $uid . ";");
+$u_cnt = $da->dosql("select * from users WHERE ID=" . $uid . ";");
 //echo "select * from users WHERE ID=" . $uid . ";";
 $col = $da->rtnres();
-if ($u_cnt!=1)
+if ($u_cnt != 1)
     die("No such user!");
 ?>
 <script>
@@ -28,6 +28,42 @@ if ($u_cnt!=1)
     $('#avatar-handle').blur(function () {
 
     })
+    $('#fileupload').fileupload({
+        url: 'uploads/',
+        dataType: 'json',
+        done: function (e, data) {
+            $('.LoadingIndicator').attr('style', 'display:none;');
+            set_off($('#avatar-handle').parent(), 'class', ' open', / open/g);
+            set_false($('#avatar-handle'), 'aria-expanded');
+            $.each(data.result.files, function (index, file) {
+                var filename = './uploads/' + file.name;
+                $.ajax({
+                    type: 'POST',
+                    url: 'user_avatar_editor.php',
+                    data: {
+                        avatar: filename,
+                    },
+                    success: function (returnData) {
+//                        alert(filename+"\n"+returnData.result);
+                        if (returnData.result==true)
+                            $('#Avatar-img').attr('src', filename);
+                    }
+                });
+
+//                alert(file.name);
+//                $('<p/>').text(file.name).appendTo('#files');
+            });
+        },
+        progressall: function (e, data) {
+            /*var progress = parseInt(data.loaded / data.total * 100, 10);
+             $('#progress .progress-bar').css(
+             'width',
+             progress + '%'
+             );*/
+            $('.LoadingIndicator').attr('style', '');
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
 </script>
 <div class="UserPage">
     <div class="UserCard Hero UserHero" style="background-color: rgb(227, 129, 154);">
@@ -36,15 +72,68 @@ if ($u_cnt!=1)
                 <div class="UserCard-profile">
                     <h2 class="UserCard-identity">
                         <div class="AvatarEditor Dropdown UserCard-avatar">
-                            <img class="Avatar " src="<?php echo $col['user_avatar'] ?>">
+                            <img id="Avatar-img" class="Avatar " src="<?php echo $col['user_avatar'] ?>">
                             <a id="avatar-handle" class="Dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <i class="icon fa fa-fw fa-pencil "></i>
+                                <div class="LoadingIndicator " style="display: none;">
+                                    <div class="spinner"
+                                         style="position: absolute; width: 0px; z-index: auto; left: 50%; top: 50%;"
+                                         role="progressbar">
+                                        <div
+                                            style="position: absolute; top: -1px; opacity: 0.25; animation: opacity-100-25-0-8 1s linear infinite;">
+                                            <div
+                                                style="position: absolute; width: 7px; height: 3px; box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px; transform-origin: left 50% 0px; transform: rotate(0deg) translate(5px, 0px); border-radius: 1px; background: rgb(255, 255, 255);"></div>
+                                        </div>
+                                        <div
+                                            style="position: absolute; top: -1px; opacity: 0.25; animation: opacity-100-25-1-8 1s linear infinite;">
+                                            <div
+                                                style="position: absolute; width: 7px; height: 3px; box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px; transform-origin: left 50% 0px; transform: rotate(45deg) translate(5px, 0px); border-radius: 1px; background: rgb(255, 255, 255);">
+                                            </div>
+                                        </div>
+                                        <div
+                                            style="position: absolute; top: -1px; opacity: 0.25; animation: opacity-100-25-2-8 1s linear infinite;">
+                                            <div
+                                                style="position: absolute; width: 7px; height: 3px; box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px; transform-origin: left 50% 0px; transform: rotate(90deg) translate(5px, 0px); border-radius: 1px; background: rgb(255, 255, 255);"></div>
+                                        </div>
+                                        <div
+                                            style="position: absolute; top: -1px; opacity: 0.25; animation: opacity-100-25-3-8 1s linear infinite;">
+                                            <div
+                                                style="position: absolute; width: 7px; height: 3px; box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px; transform-origin: left 50% 0px; transform: rotate(135deg) translate(5px, 0px); border-radius: 1px; background: rgb(255, 255, 255);"></div>
+                                        </div>
+                                        <div
+                                            style="position: absolute; top: -1px; opacity: 0.25; animation: opacity-100-25-4-8 1s linear infinite;">
+                                            <div
+                                                style="position: absolute; width: 7px; height: 3px; box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px; transform-origin: left 50% 0px; transform: rotate(180deg) translate(5px, 0px); border-radius: 1px; background: rgb(255, 255, 255);"></div>
+                                        </div>
+                                        <div
+                                            style="position: absolute; top: -1px; opacity: 0.25; animation: opacity-100-25-5-8 1s linear infinite;">
+                                            <div
+                                                style="position: absolute; width: 7px; height: 3px; box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px; transform-origin: left 50% 0px; transform: rotate(225deg) translate(5px, 0px); border-radius: 1px; background: rgb(255, 255, 255);"></div>
+                                        </div>
+                                        <div
+                                            style="position: absolute; top: -1px; opacity: 0.25; animation: opacity-100-25-6-8 1s linear infinite;">
+                                            <div
+                                                style="position: absolute; width: 7px; height: 3px; box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px; transform-origin: left 50% 0px; transform: rotate(270deg) translate(5px, 0px); border-radius: 1px; background: rgb(255, 255, 255);"></div>
+                                        </div>
+                                        <div
+                                            style="position: absolute; top: -1px; opacity: 0.25; animation: opacity-100-25-7-8 1s linear infinite;">
+                                            <div
+                                                style="position: absolute; width: 7px; height: 3px; box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px; transform-origin: left 50% 0px; transform: rotate(315deg) translate(5px, 0px); border-radius: 1px; background: rgb(255, 255, 255);"></div>
+                                        </div>
+                                    </div>
+                                    &nbsp;
+                                </div>
                             </a>
                             <ul class="Dropdown-menu Menu">
                                 <li class="item-upload">
                                     <button class=" hasIcon" type="button">
                                         <i class="icon fa fa-fw fa-upload Button-icon"></i>
-                                        <span class="Button-label">Upload</span>
+
+                                            <span class="fileinput">
+                                                <span class="Button-label">Upload</span>
+                                                <!-- The file input field used as target for the file upload widget -->
+                                                <input id="fileupload" type="file" name="files[]">
+                                            </span>
                                     </button>
                                 </li>
                                 <li class="item-remove" style="display: none">
@@ -55,7 +144,7 @@ if ($u_cnt!=1)
                                 </li>
                             </ul>
                         </div>
-                        <span class="username"><?php echo $col['user_login']?></span>
+                        <span class="username"><?php echo $col['user_login'] ?></span>
                     </h2>
                     <ul class="UserCard-info">
                         <li class="item-bio">
