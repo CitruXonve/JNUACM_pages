@@ -108,9 +108,11 @@ function getVerifyingRes(){
 <script src="//cdn.bootcss.com/jquery.form/3.51/jquery.form.js"></script>
 <script src="//cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.js"></script>
 <script src="//cdn.bootcss.com/globalize/1.1.1/globalize.js"></script>
-<script src="js/vendor/jquery.ui.widget.js"></script>
-<script src="js/jquery.iframe-transport.js"></script>
-<script src="js/jquery.fileupload.js"></script>
+<script src="./js/vendor/jquery.ui.widget.js"></script>
+<script src="./js/jquery.iframe-transport.js"></script>
+<script src="./js/jquery.fileupload.js"></script>
+<script src="./js/jquery.pjax.js"></script>
+<script src="./js/state-machine.js"></script>
 <!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
 <link rel="stylesheet" href="//cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.css">
 <link rel="stylesheet" href="./assets/jquery.fileupload.css">
