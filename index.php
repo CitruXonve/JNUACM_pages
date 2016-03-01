@@ -10,6 +10,25 @@
     require_once "header.php";
     ?>
     <script type="text/javascript">
+        function routing(){
+            var param=window.location.search;
+            display_loading();
+            loadControls();
+            if (param==''||param.match(/index/)||param.match(/all/)){
+                loadMainPage();
+            }
+            if (param.match(/print/)){
+                loadPrint();
+            }
+        }
+        var fsm=StateMachine.create({
+//            initial:'main',
+            events:[
+                {name:'load-main',from:'none',to:'main'},
+            ]
+        })
+    </script>
+    <script type="text/javascript">
         function loadControls() {
             $.get('user_verify.php', function (res) {
                 if (res.result) {
@@ -25,6 +44,7 @@
             });
         }
         function loadMainPage() {
+//            window.location.search="";
             $.ajax({
                 url: 'main.php',
                 cache: false,
@@ -43,6 +63,7 @@
         }
         function loadSinglePost(pid) {
             //xmlhttpload_get("single.php?p=" + pid, "content");
+//            window.location.search='single.php?p=' + pid;
             $.ajax({
                 url: 'single.php?p=' + pid,
                 cache: false,
@@ -51,7 +72,32 @@
                 }
             });
         }
+        function loadTaglist(tid) {
+            deactivate_all();
+            activate($(this));
+            $.get('loading.html', function (returnData) {
+                $('[id=IndexPage-list]').html(returnData);
+            });
+            //setTimeout(function () {
+            $.get('taglist.php?tid=' +tid, function (returnData) {
+                $('[id=IndexPage-list]').html(returnData);
+            });
+            //}, 1000);
+        }
+        function loadPrint(){
+//            window.location.search="print";
+            $.ajax({
+                url: 'print.php',
+                cache: false,
+                success: function (returnData) {
+                    $('#content').html(returnData);
+                }
+            });
+        }
         function display_loading() {
+            $.get('loading.html', function (returnData) {
+                $('#content').html(returnData);
+            })
             // .... 其他指令
             /*_oTag = document.getElementById("model");
              _oTag.style.display = "none"; // hide it.
@@ -66,17 +112,13 @@
              }*/
             $('#home-link').click(function (evt) {
                 evt.preventDefault();
+                history.pushState(null,'','?index');
                 loadMainPage();
             })
             $('#print-link').click(function (evt) {
                 evt.preventDefault();
-                $.ajax({
-                    url: 'print.php',
-                    cache: false,
-                    success: function (returnData) {
-                        $('#content').html(returnData);
-                    }
-                });
+                history.pushState(null,'','?print');
+                loadPrint();
             })
         });
         $(document).scroll(function () {
@@ -85,12 +127,15 @@
             else
                 set_off($('[id=app]'),'class',' scrolled',/ scrolled/g);
         })
+        window.addEventListener('popstate', function(evt){
+            var state = evt.state;
+            location.reload();
+        }, false);
     </script>
 </head>
 <body>
 <script>
-    loadControls();
-    loadMainPage();
+    routing();
 </script>
 <div id="app" class="App App--index affix">
     <div id="app-navigation" class="App-navigation">
@@ -131,9 +176,6 @@
 
     <main class="App-content">
         <div id="content">
-            <?php
-            include_once "loading.html"
-            ?>
         </div>
     </main>
 

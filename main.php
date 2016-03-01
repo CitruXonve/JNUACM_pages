@@ -12,11 +12,11 @@ include_once 'header.php';
         $.get('loading.html', function (returnData) {
             $('[id=IndexPage-list]').html(returnData);
         });
-        setTimeout(function () {
+        //setTimeout(function () {
             $.get('list.php', function (returnData) {
                 $('[id=IndexPage-list]').html(returnData);
             });
-        }, 1000);
+        //}, 1000);
     });
 </script>
 <div class="IndexPage">
