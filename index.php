@@ -10,6 +10,100 @@
     require_once "header.php";
     ?>
     <script type="text/javascript">
+        function go(param){
+//            alert('then'+param);
+                if (param.match(/login$/)){
+                    load_login_panel();
+                    param.replace(/login$/,'');
+                }
+                if (param.match(/signup$/)){
+                    load_signup_panel();
+                    param.replace(/signup$/,'');
+                }
+                if (param.match(/p=\d+$/)) {
+//                    display_loading();
+                    loadSinglePost(param.match(/p=(\d+)$/)[1]);
+                    return;
+                }
+                if (param.match(/print$/)){
+//                    display_loading();
+                    loadPrint();
+                    return;
+                }
+                if (param.match(/profile$/)){
+                    loadProfilePage();
+                    return;
+                }
+                if (param.match(/settings$/)){
+                    loadSettingPage();
+                    return;
+                }
+                if (param===''||param.match(/index$/)||param.match(/all$/)||param.match(/t=\w+$/)){
+//                    display_loading();
+                    loadMainPage();
+                    return;
+                }
+        };
+        function routing(){
+            var param=window.location.search;
+            
+            var promise=new Promise(function(resolve){
+                if (loadControls()){
+                    alert('init');
+                    resolve(param);
+                    
+                }
+                
+            });
+            
+            promise.then(go(param));
+            
+            
+        }
+        var fsm=StateMachine.create({
+//            initial:'main',
+            events:[
+                {name:'load-main',from:'none',to:'main'},
+            ]
+        })
+    </script>
+    <script type="text/javascript">
+        function loadProfilePage(){
+            $.get('user_profile.php', function (returnData) {
+                $('#content').html(returnData);
+            })
+        }
+        function loadSettingPage(){
+            $.get('user_settings.php', function (returnData) {
+                $('#content').html(returnData);
+            })
+        }
+        function load_login_panel(){
+        $.ajax({
+            url: 'login_panel.php',
+            cache: false,
+            success: function (returnData) {
+                $('#model-manager').html(returnData);
+                _oTag = document.getElementById("model-manager");
+                _oTag.style.display = "block"; // reveal it.
+                _oTag = document.getElementById("model");
+                _oTag.style.display = ""; // reveal it.
+            }
+        });
+    }
+    function load_signup_panel() {
+        $.ajax({
+            url: 'signup_panel.php',
+            cache: false,
+            success: function (returnData) {
+                $('#model-manager').html(returnData);
+                _oTag = document.getElementById("model-manager");
+                _oTag.style.display = "block"; // reveal it.
+                _oTag = document.getElementById("model");
+                _oTag.style.display = ""; // reveal it.
+            }
+        });
+    }
         function loadControls() {
             $.get('user_verify.php', function (res) {
                 if (res.result) {
@@ -22,9 +116,12 @@
                         $('#header-secondary').html(returnData);
                     });
                 }
+                return true;
             });
+            return false;
         }
         function loadMainPage() {
+//            window.location.search="";
             $.ajax({
                 url: 'main.php',
                 cache: false,
@@ -43,6 +140,7 @@
         }
         function loadSinglePost(pid) {
             //xmlhttpload_get("single.php?p=" + pid, "content");
+//            window.location.search='single.php?p=' + pid;
             $.ajax({
                 url: 'single.php?p=' + pid,
                 cache: false,
@@ -51,7 +149,29 @@
                 }
             });
         }
+        function loadTaglist(tid) {
+            deactivate_all();
+            activate($('.item-tag'+tid));
+            setTimeout(function () {
+            $.get('taglist.php?tid=' +tid, function (returnData) {
+                $('[id=IndexPage-list]').html(returnData);
+            });
+           }, 500);
+        }
+        function loadPrint(){
+//            window.location.search="print";
+            $.ajax({
+                url: 'print.php',
+                cache: false,
+                success: function (returnData) {
+                    $('#content').html(returnData);
+                }
+            });
+        }
         function display_loading() {
+            $.get('loading.html', function (returnData) {
+                $('#content').html(returnData);
+            })
             // .... 其他指令
             /*_oTag = document.getElementById("model");
              _oTag.style.display = "none"; // hide it.
@@ -66,17 +186,13 @@
              }*/
             $('#home-link').click(function (evt) {
                 evt.preventDefault();
+                history.pushState(null,'','?index');
                 loadMainPage();
             })
             $('#print-link').click(function (evt) {
                 evt.preventDefault();
-                $.ajax({
-                    url: 'print.php',
-                    cache: false,
-                    success: function (returnData) {
-                        $('#content').html(returnData);
-                    }
-                });
+                history.pushState(null,'','?print');
+                loadPrint();
             })
         });
         $(document).scroll(function () {
@@ -85,12 +201,15 @@
             else
                 set_off($('[id=app]'),'class',' scrolled',/ scrolled/g);
         })
+        window.addEventListener('popstate', function(evt){
+            var state = evt.state;
+            location.reload();
+        }, false);
     </script>
 </head>
 <body>
 <script>
-    loadControls();
-    loadMainPage();
+    routing();
 </script>
 <div id="app" class="App App--index affix">
     <div id="app-navigation" class="App-navigation">
@@ -132,7 +251,7 @@
     <main class="App-content">
         <div id="content">
             <?php
-            include_once "loading.html"
+            include 'loading.html';
             ?>
         </div>
     </main>
@@ -145,7 +264,11 @@
 <div id="model" style="display: none;">
     <div class="ModalManager modal fade in"
          style="display: block;position: fixed;top: 0;right: 0;bottom: 0;left: 0;overflow: hidden;background-color: rgba(170, 170, 170, 0.901961);">
-        <div id="model-manager"></div>
+        <div id="model-manager">
+            <?php
+            include 'loading.html';
+        ?>
+        </div>
     </div>
 </div>
 </body>

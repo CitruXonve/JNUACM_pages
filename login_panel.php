@@ -14,6 +14,7 @@ include_once "header.php";
         _oTag.style.display = "none"; // hide it.
         _oTag = document.getElementById("model");
         _oTag.style.display = "none"; // hide it.
+        history.back();
     });
     $('#form-submit').submit(function () {
 //        alert("click");
@@ -30,7 +31,7 @@ include_once "header.php";
                     $('.Button-submit-login').html('Success! Please wait...');
                 else
                     $('.Button-submit-login').html('Logging in failed!');
-                setTimeout("location.reload()", 1000);
+                setTimeout("history.back()", 1000);
             }
         });
         return false;
