@@ -8,16 +8,28 @@
 include_once 'header.php';
 ?>
 <script type="text/javascript">
-    $(document).ready(function () {
+    function display_loading_main(){
         $.get('loading.html', function (returnData) {
             $('[id=IndexPage-list]').html(returnData);
         });
-        //setTimeout(function () {
-            $.get('list.php', function (returnData) {
-                $('[id=IndexPage-list]').html(returnData);
-            });
-        //}, 1000);
-    });
+    }
+    function routing_main(){
+            var param=window.location.search;
+            display_loading_main();
+            if (param===''||param.match(/index$/)||param.match(/all$/)){
+                deactivate_all();
+                activate($('.item-allDiscussions'));
+                setTimeout(function () {
+                    $.get('list.php', function (returnData) {
+                        $('[id=IndexPage-list]').html(returnData);
+                    });
+                }, 500);
+            }
+            if (param.match(/t=\w+$/)) {
+                loadTaglist(param.match(/t=(\w+)$/)[1]);
+            }
+        }
+    routing_main();
 </script>
 <div class="IndexPage">
     <header class="Hero WelcomeHero">

@@ -17,7 +17,9 @@ $da=new DataAccess();
         $(this).click(function (evt) {
             evt.preventDefault();
 //                            alert($(this).attr('id'));
-            loadSinglePost($(this).attr('id'));
+//            loadSinglePost($(this).attr('id'));
+            history.pushState(null,'','?p='+$(this).attr('id'));
+            routing();
         })
     })
 </script>

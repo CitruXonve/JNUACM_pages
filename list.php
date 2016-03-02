@@ -9,8 +9,9 @@ $da = new DataAccess();
             evt.preventDefault();
 //                            alert($(this).attr('id'));
             history.pushState(null,'','?p='+$(this).attr('id'));
+            routing();
 //            loadMainPage();
-            loadSinglePost($(this).attr('id'));
+//            loadSinglePost($(this).attr('id'));
         })
     })
 </script>

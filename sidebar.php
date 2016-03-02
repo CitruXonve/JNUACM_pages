@@ -10,17 +10,9 @@ $da = new DataAccess();
 ?>
 <script>
     $('.item-allDiscussions').click(function () {
-        deactivate_all();
-        activate($(this));
-        $.get('loading.html', function (returnData) {
-            $('[id=IndexPage-list]').html(returnData);
-        });
-        setTimeout(function () {
-            $.get('list.php', function (returnData) {
-                $('[id=IndexPage-list]').html(returnData);
-            });
-        }, 1000);
-    })
+        history.pushState(null,'','?all');
+        routing_main();
+    });
 </script>
 <ul>
     <li class="item-newDiscussion App-primaryControl">
@@ -63,7 +55,8 @@ $da = new DataAccess();
                     <script>
                         $('.item-tag<?php echo $row['tid'] ?> ').click(function () {
                             history.pushState(null,'','?t='+<?php echo $row['tid'] ?>);
-                            loadTaglist(<?php echo $row['tid'] ?>);
+                            routing_main();
+//                            loadTaglist(<?php echo $row['tid'] ?>);
                         })
                     </script>
                     <li class="item-tag<?php echo $row['tid'] ?> ">

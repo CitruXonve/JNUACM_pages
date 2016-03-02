@@ -14,6 +14,7 @@ include_once "header.php";
         _oTag.style.display = "none"; // hide it.
         _oTag = document.getElementById("model");
         _oTag.style.display = "none"; // hide it.
+        history.back();
     });
     function check() {
         if ($('[name=login]').val().length < 1) {
@@ -52,7 +53,7 @@ include_once "header.php";
             success: function (returnData) {
                 if (returnData.result == true){
                     $('.Button-submit-signup').html('Success! Please wait...');
-                    setTimeout("location.reload()", 1000);
+                    setTimeout("history.back()", 1000);
                 }
                 else{
                     $('.Button-submit-signup').html(returnData.result);

@@ -10,16 +10,55 @@
     require_once "header.php";
     ?>
     <script type="text/javascript">
+        function go(param){
+//            alert('then'+param);
+                if (param.match(/login$/)){
+                    load_login_panel();
+                    param.replace(/login$/,'');
+                }
+                if (param.match(/signup$/)){
+                    load_signup_panel();
+                    param.replace(/signup$/,'');
+                }
+                if (param.match(/p=\d+$/)) {
+//                    display_loading();
+                    loadSinglePost(param.match(/p=(\d+)$/)[1]);
+                    return;
+                }
+                if (param.match(/print$/)){
+//                    display_loading();
+                    loadPrint();
+                    return;
+                }
+                if (param.match(/profile$/)){
+                    loadProfilePage();
+                    return;
+                }
+                if (param.match(/settings$/)){
+                    loadSettingPage();
+                    return;
+                }
+                if (param===''||param.match(/index$/)||param.match(/all$/)||param.match(/t=\w+$/)){
+//                    display_loading();
+                    loadMainPage();
+                    return;
+                }
+        };
         function routing(){
             var param=window.location.search;
-            display_loading();
-            loadControls();
-            if (param==''||param.match(/index/)||param.match(/all/)){
-                loadMainPage();
-            }
-            if (param.match(/print/)){
-                loadPrint();
-            }
+            
+            var promise=new Promise(function(resolve){
+                if (loadControls()){
+                    alert('init');
+                    resolve(param);
+                    
+                }
+                
+            });
+            
+            promise.then(go(param));
+            
+            
         }
         var fsm=StateMachine.create({
 //            initial:'main',
@@ -29,6 +68,42 @@
         })
     </script>
     <script type="text/javascript">
+        function loadProfilePage(){
+            $.get('user_profile.php', function (returnData) {
+                $('#content').html(returnData);
+            })
+        }
+        function loadSettingPage(){
+            $.get('user_settings.php', function (returnData) {
+                $('#content').html(returnData);
+            })
+        }
+        function load_login_panel(){
+        $.ajax({
+            url: 'login_panel.php',
+            cache: false,
+            success: function (returnData) {
+                $('#model-manager').html(returnData);
+                _oTag = document.getElementById("model-manager");
+                _oTag.style.display = "block"; // reveal it.
+                _oTag = document.getElementById("model");
+                _oTag.style.display = ""; // reveal it.
+            }
+        });
+    }
+    function load_signup_panel() {
+        $.ajax({
+            url: 'signup_panel.php',
+            cache: false,
+            success: function (returnData) {
+                $('#model-manager').html(returnData);
+                _oTag = document.getElementById("model-manager");
+                _oTag.style.display = "block"; // reveal it.
+                _oTag = document.getElementById("model");
+                _oTag.style.display = ""; // reveal it.
+            }
+        });
+    }
         function loadControls() {
             $.get('user_verify.php', function (res) {
                 if (res.result) {
@@ -41,7 +116,9 @@
                         $('#header-secondary').html(returnData);
                     });
                 }
+                return true;
             });
+            return false;
         }
         function loadMainPage() {
 //            window.location.search="";
@@ -74,15 +151,12 @@
         }
         function loadTaglist(tid) {
             deactivate_all();
-            activate($(this));
-            $.get('loading.html', function (returnData) {
-                $('[id=IndexPage-list]').html(returnData);
-            });
-            //setTimeout(function () {
+            activate($('.item-tag'+tid));
+            setTimeout(function () {
             $.get('taglist.php?tid=' +tid, function (returnData) {
                 $('[id=IndexPage-list]').html(returnData);
             });
-            //}, 1000);
+           }, 500);
         }
         function loadPrint(){
 //            window.location.search="print";
@@ -176,6 +250,9 @@
 
     <main class="App-content">
         <div id="content">
+            <?php
+            include 'loading.html';
+            ?>
         </div>
     </main>
 
@@ -187,7 +264,11 @@
 <div id="model" style="display: none;">
     <div class="ModalManager modal fade in"
          style="display: block;position: fixed;top: 0;right: 0;bottom: 0;left: 0;overflow: hidden;background-color: rgba(170, 170, 170, 0.901961);">
-        <div id="model-manager"></div>
+        <div id="model-manager">
+            <?php
+            include 'loading.html';
+        ?>
+        </div>
     </div>
 </div>
 </body>

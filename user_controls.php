@@ -16,6 +16,7 @@ $col = $da->rtnres();
 //echo "select * from users WHERE user_login='".$_SESSION['username']."';";
 ?>
 <script type="text/javascript">
+    
     $('#Dropdown-button').click(function () {
         switch_user_menu($(this))
     });
@@ -29,14 +30,12 @@ $col = $da->rtnres();
         switch_user_menu($(this))
     });
     $('.item-profile').click(function () {
-        $.get('user_profile.php', function (returnData) {
-            $('#content').html(returnData);
-        })
+        history.pushState(null,'User Profile','?profile');
+        routing();
     })
     $('.item-settings').click(function () {
-        $.get('user_settings.php', function (returnData) {
-            $('#content').html(returnData);
-        })
+        history.pushState(null,'User Settings','?settingsS');
+        routing();
     })
     $('#log-out-button').click(function () {
         $.ajax({
