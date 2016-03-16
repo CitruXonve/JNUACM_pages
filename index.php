@@ -2,8 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Jiangnan University ACM-ICPC</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+        <title>Jiangnan University ACM-ICPC</title>
         <link rel="stylesheet" href="./assets/forum.css">
         <script src="./js/main.js"></script>
         <?php
@@ -11,15 +12,17 @@
         ?>
         <script type="text/javascript">
             function loadProfilePage(uid) {
-                $.get('user_profile.php' + ((uid) ? '?u=' + uid : ''), function (returnData) {
-                    $('#content').html(returnData);
-                }
-                );
+                $('#content').load('user_profile.php' + ((uid) ? '?u=' + uid : ''));
+                /*$.get('user_profile.php' + ((uid) ? '?u=' + uid : ''), function (returnData) {
+                 $('#content').html(returnData);
+                 }
+                 );*/
             }
             function loadSettingPage() {
-                $.get('user_settings.php', function (returnData) {
-                    $('#content').html(returnData);
-                })
+                $('#content').load('user_settings.php');
+                /*$.get('user_settings.php', function (returnData) {
+                 $('#content').html(returnData);
+                 })*/
             }
             function load_login_panel() {
                 $.ajax({
@@ -35,9 +38,9 @@
                 });
             }
             function load_signup_panel(param) {
-                var Url='signup_panel.php';
-                if (param&&typeof(param)==='string')
-                    Url=Url+'?redirect='+param;
+                var Url = 'signup_panel.php';
+                if (param && typeof (param) === 'string')
+                    Url = Url + '?redirect=' + param;
                 $.ajax({
                     url: Url,
                     cache: false,
@@ -67,56 +70,61 @@
             }
             function loadMainPage() {
                 //            window.location.search="";
-                $.ajax({
-                    url: 'main.php',
-                    cache: false,
-                    success: function (returnData) {
-                        $('#content').html(returnData);
+                $('#content').load('main.php');
+                /*$.ajax({
+                 url: 'main.php',
+                 cache: false,
+                 success: function (returnData) {
+                 $('#content').html(returnData);*/
 
-                        /*$('.item-read-more').each(function () {
-                         $(this).click(function (evt) {
-                         evt.preventDefault();
-                         //                            alert($(this).attr('id'));
-                         loadSinglePost($(this).attr('id'));
-                         })
-                         })*/
-                    }
-                });
+                /*$('.item-read-more').each(function () {
+                 $(this).click(function (evt) {
+                 evt.preventDefault();
+                 //                            alert($(this).attr('id'));
+                 loadSinglePost($(this).attr('id'));
+                 })
+                 })*/
+                /*}
+                 });*/
             }
             function loadSinglePost(pid) {
                 //xmlhttpload_get("single.php?p=" + pid, "content");
                 //            window.location.search='single.php?p=' + pid;
-                $.ajax({
-                    url: 'single.php?p=' + pid,
-                    cache: false,
-                    success: function (returnData) {
-                        $('#content').html(returnData);
-                    }
-                });
+                $('#content').load('single.php?p=' + pid);
+                /*$.ajax({
+                 url: 'single.php?p=' + pid,
+                 cache: false,
+                 success: function (returnData) {
+                 $('#content').html(returnData);
+                 }
+                 });*/
             }
             function loadTaglist(tid) {
                 deactivate_all();
                 activate($('.item-tag' + tid));
                 setTimeout(function () {
-                    $.get('taglist.php?tid=' + tid, function (returnData) {
-                        $('[id=IndexPage-list]').html(returnData);
-                    });
+                    $('[id=IndexPage-list]').load('taglist.php?tid=' + tid);
+                    /*$.get('taglist.php?tid=' + tid, function (returnData) {
+                     $('[id=IndexPage-list]').html(returnData);
+                     });*/
                 }, 500);
             }
             function loadPrint() {
                 //            window.location.search="print";
-                $.ajax({
-                    url: 'print.php',
-                    cache: false,
-                    success: function (returnData) {
-                        $('#content').html(returnData);
-                    }
-                });
+                $('#content').load('print.php');
+                /*$.ajax({
+                 url: 'print.php',
+                 cache: false,
+                 success: function (returnData) {
+                 $('#content').html(returnData);
+                 }
+                 });*/
             }
             function display_loading() {
-                $.get('loading.html', function (returnData) {
-                    $('#content').html(returnData);
-                })
+                $('#content').load('loading.html');
+                /*$.get('loading.html', function (returnData) {
+                 $('#content').html(returnData);
+                 })*/
                 // .... ∆‰À˚÷∏¡Ó
                 /*_oTag = document.getElementById("model");
                  _oTag.style.display = "none"; // hide it.
@@ -124,11 +132,7 @@
                  _oTag.style.display = "none"; // hide it.*/
             }
             $(document).ready(function () {
-                /*if (window.attachEvent) {
-                 window.attachEvent('onload', display_loading);
-                 } else {
-                 window.addEventListener('load', display_loading, false);
-                 }*/
+
                 $('#home-link').click(function (evt) {
                     evt.preventDefault();
                     history.pushState(null, '', '?index');
@@ -150,8 +154,16 @@
                 var state = evt.state;
                 location.reload();
             }, false);
-        </script>
-        <script type="text/javascript">
+            /*if (window.attachEvent) {
+             window.attachEvent('onload', display_loading);
+             } else {
+             window.addEventListener('load', display_loading, false);
+             }*/
+            if (window.attachEvent) {
+                window.attachEvent('onload', routing);
+            } else {
+                window.addEventListener('load', routing, false);
+            }
             function go(param) {
                 //            alert('then'+param);
                 if (param.match(/login$/)) {
@@ -218,8 +230,12 @@
     </head>
     <body>
         <script>
-            routing();
+//            routing();
         </script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <div id="app" class="App App--index affix">
             <div id="app-navigation" class="App-navigation">
                 <div class="Navigation ButtonGroup App-backControl">
