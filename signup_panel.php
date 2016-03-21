@@ -111,7 +111,7 @@ include_once "header.php";
                 </div>
             </div>
             <div class="Modal-footer">
-                <p class="SignUpModal-logIn">Already have an account? <a>Log In</a></p>
+                <p class="SignUpModal-logIn">Already have an account? <a href="./?login">Log In</a></p>
             </div>
         </form>
     </div>

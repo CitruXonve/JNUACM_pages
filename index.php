@@ -136,7 +136,7 @@
             }
             $(document).ready(function () {
 
-                $('#home-link').click(function (evt) {
+                /*$('#home-link').click(function (evt) {
                     evt.preventDefault();
                     history.pushState(null, '', '?index');
                     loadMainPage();
@@ -145,7 +145,7 @@
                     evt.preventDefault();
                     history.pushState(null, '', '?print');
                     loadPrint();
-                })
+                })*/
             });
             $(document).scroll(function () {
                 if ($(this).scrollTop() > 0)
@@ -256,17 +256,17 @@
                     </div>
                     <div class="container">
                         <h1 class="Header-title">
-                            <a id="home-link">
+                            <a id="home-link" href="./">
                                 JNU-ACM Club::Home
                             </a>
                         </h1>
                         <h1 class="Header-title">
-                            <a href="/swap/" id="home-link">
+                            <a href="/swap/">
                                 Swap
                             </a>
                         </h1>
                         <h1 class="Header-title">
-                            <a id="print-link">
+                            <a id="print-link" href="./?print">
                                 PrintService
                             </a>
                         </h1>

@@ -64,7 +64,7 @@ function parseDate($str) {
     if (abs($dif->days) < 1 && abs($dif->h) < 1 && abs($dif->i) < 1)
         return 'a minute ago';
     else if (abs($dif->days) < 1 && abs($dif->h) < 1)
-        return $dif->format('i') . ' minutes ago';
+        return $dif->format('%i') . ' minutes ago';
     else if (abs($dif->days) < 1 && abs($dif->h) < 2)
         return 'an hour ago';
     else if (abs($dif->days) < 1)
