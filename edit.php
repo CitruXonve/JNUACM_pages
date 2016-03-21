@@ -25,13 +25,13 @@ require_once "header.php";
             type: 'POST',
             url: 'post_editor.php',
             data: {
-                post_title: $('[name=Title]').val(),
-                post_content: $('[name=Content]').val()
+                post_title: $('#post_title').val(),
+                post_content: $('#post_content').val()
             },
             success: function (returnData) {
-                alert(returnData);
+                // alert(returnData);
                 if (returnData.result == true)
-                    alert("Success!");
+                    alert("Success!"/*+returnData.title*/);
                 else
                     alert("Failed!");
                 setTimeout("history.back()", 1000);

@@ -57,6 +57,8 @@ class DataAccess
         mysql_select_db($cfg['data_database'],$this->conn);
 //        mysql_query("set names utf8");
         mysql_query("set character set 'utf8'");   // PHP 文件为 utf-8 格式时使用
+        // mysql_query("SET NAMES utf8");
+        // mysqli::set_charset('utf8'); 
     }
 
     public function __destruct() 
@@ -70,7 +72,7 @@ class DataAccess
         $Query_Times++;
         if (!empty($this->result))
             @mysql_free_result($this->result);
-
+        // mysql_query("SET NAMES utf8");
         $this->result=mysql_query($SQL) or die(mysql_error());
         $this->rows=@mysql_num_rows($this->result);
         return $this->rows;

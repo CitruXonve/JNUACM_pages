@@ -7,7 +7,7 @@
  */
 
 require_once "include/lib.php";
-header('Content-type: text/json');
+header('Content-type: text/json;charset:utf-8');
 $da = new DataAccess();
 session_start();
 
@@ -29,9 +29,16 @@ if (!getVerifyingRes())
 else
     $uid = $_SESSION['user_id'];
 
+$now=new DateTime();
 $datetime=$now->format('Y-m-d H:i:s');
-$title=$_SESSION['post_title'];
-$content=$_SESSION['post_content'];
+$title=$_POST['post_title'];
+$content=$_POST['post_content'];
 
-$da->dosql("insert posts (uid,title,content,date) values(".$uid.",'".$title."'.'".$content."','".$datetime."');");
-echo(json_encode(array('result'=>true)));
+$da->dosql("SET NAMES utf8");
+$da->dosql("INSERT posts (uid,title,content,date) values(".$uid.",'".$title."','".$content."','".$datetime."');");
+
+$cnt=$da->dosql("SELECT pid FROM posts WHERE title='".$title."' and date='".$datetime."';");
+if ($cnt==1)
+    echo json_encode(array('result'=>true,'pid'=>$da->rtnrlt(0)['pid']));
+else
+    echo json_encode(array('result'=>false));
