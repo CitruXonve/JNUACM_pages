@@ -8,12 +8,17 @@
 include_once "header.php";
 ?>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $.get('user_verify.php', function (returnData) {
+//    $(document).ready(function () {
+//        $.get('user_verify.php', function (returnData) {
+//            if (!returnData.result)
+//                $('[id=DiscussionPageContainer]').html('Please log in and retry!');
+//        })
+//    });
+    $.get('user_verify.php', function (returnData) {
             if (!returnData.result)
                 $('[id=DiscussionPageContainer]').html('Please log in and retry!');
-        })
-    });
+        });
+        
     $('#reset-button').click(function ClearContent() {
         $('[id=TeamNo]').val('');
         $('[id=CodeContent').val('');

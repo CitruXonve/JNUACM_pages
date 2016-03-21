@@ -113,7 +113,9 @@ function getVerifyingRes() {
 <link rel="stylesheet" href="./assets/jquery.fileupload.css">
 <script src="./js/md5.js"></script>
 <!-- Bootstrap -->
-<link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+<link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.css" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

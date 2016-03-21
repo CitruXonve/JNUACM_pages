@@ -5,25 +5,31 @@
  * Date: 2/24/16
  * Time: 09:36
  */
-
 require_once "header.php";
 ?>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $.get('user_verify.php', function (returnData) {
-            if (!returnData.result)
-                $('[id=DiscussionPageContainer]').html('Please log in and retry!');
-        })
+//    $(document).ready(function () {
+//        $.get('user_verify.php', function (returnData) {
+//            if (!returnData.result)
+//                $('[id=DiscussionPageContainer]').html('Please log in and retry!');
+//        })
+//    });
+    $.get('user_verify.php', function (returnData) {
+        if (!returnData.result)
+            location.href = "./?login";
+        //$('[id=DiscussionPageContainer]').html('Please log in and retry!');
     });
-    $('#form-submit').submit(function(){
+
+    $('#form-submit').submit(function () {
         $.ajax({
             type: 'POST',
             url: 'post_editor.php',
             data: {
                 post_title: $('[name=Title]').val(),
-                post_content: hex_md5($('[name=Content]').val())
+                post_content: $('[name=Content]').val()
             },
             success: function (returnData) {
+                alert(returnData);
                 if (returnData.result == true)
                     alert("Success!");
                 else
@@ -31,6 +37,7 @@ require_once "header.php";
                 setTimeout("history.back()", 1000);
             }
         });
+        return false;
     })
 //    $('#reset-button').click(function ClearContent() {
 //        $('[id=TeamNo]').val('');
@@ -60,10 +67,9 @@ require_once "header.php";
                                             <div class="DiscussionListItem-content Slidable-content" align="">
                                                 <ul class="DiscussionListItem-main">
                                                     <ul class="DiscussionListItem-info">
-                                                        <span>Title:</span>
                                                     </ul>
                                                 </ul>
-                                                <input id="post_title" name="Title">
+                                                <input id="post_title" name="Title" class="FormControl" placeholder="Discussion Title">
                                                 <ul class="DiscussionListItem-main">
                                                 </ul>
                                             </div>
@@ -73,11 +79,9 @@ require_once "header.php";
                                             <div class="DiscussionListItem-content Slidable-content">
                                                 <ul class="DiscussionListItem-main">
                                                     <ul class="DiscussionListItem-info">
-                                                        <span>Code:</span>
                                                     </ul>
                                                 </ul>
-                                                <textarea id="post_content" rows="15" name="Content"
-                                                          style="width: 100%;"></textarea>
+                                                <textarea id="post_content" name="Content" class="FormControl TextEditor-flexible" placeholder="Write a Post..." style="height: 200px;"></textarea>
                                                 <ul class="DiscussionListItem-main">
                                                 </ul>
                                             </div>
@@ -88,13 +92,9 @@ require_once "header.php";
                                                  align="center">
                                                 <ul class="DiscussionListItem-info">
                                                     <button
-                                                        class="Button Button--primary IndexPage-newDiscussion hasIcon"
-                                                        itemclassname="App-primaryControl" type="submit"><i
+                                                        class="Button Button--primary hasIcon" type="submit"><i
                                                             class="icon fa fa-fw fa-edit Button-icon"></i><span
-                                                            class="Button-label">Submit</span>
-                                                    </button>
-                                                    <button id="reset-button" class="Button" type="button">
-                                                        <span class="Button-label">Reset</span>
+                                                            class="Button-label">Post</span>
                                                     </button>
                                                 </ul>
                                             </div>
@@ -102,7 +102,7 @@ require_once "header.php";
                                     </li>
                                 </ul>
                                 <div class="DiscussionList-loadMore"></div>
-                        </form>
+                            </form>
                         </div>
                     </article>
                 </div>

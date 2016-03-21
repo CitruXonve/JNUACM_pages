@@ -109,6 +109,9 @@
                      });*/
                 }, 500);
             }
+            function loadEditPage(pid) {
+                $('#content').load('edit.php' + ((pid) ? '?p=' + pid : ''));
+            }
             function loadPrint() {
                 //            window.location.search="print";
                 $('#content').load('print.php');
@@ -125,7 +128,7 @@
                 /*$.get('loading.html', function (returnData) {
                  $('#content').html(returnData);
                  })*/
-                // .... ÆäËûÖ¸Áî
+                // .... ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
                 /*_oTag = document.getElementById("model");
                  _oTag.style.display = "none"; // hide it.
                  _oTag = document.getElementById("modal-loading");
@@ -174,6 +177,9 @@
                     load_signup_panel(param.match(/redirect=.*$/));
                     param.replace(/signup.*$/, '');
                 }
+                if (param.match(/edit.*$/)) {
+                    loadEditPage(param.match(/p=.*$/));
+                }
                 if (param.match(/p=\d+$/)) {
                     //                    display_loading();
                     loadSinglePost(param.match(/p=(\d+)$/)[1]);
@@ -206,7 +212,7 @@
             ;
             function routing() {
                 var param = window.location.search;
-
+                display_loading();
                 var promise = new Promise(function (resolve) {
                     if (loadControls()) {
                         alert('init');
