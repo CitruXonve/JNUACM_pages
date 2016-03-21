@@ -17,24 +17,24 @@ $col = $da->rtnres();
 ?>
 <script type="text/javascript">
     
-    $('#Dropdown-button').click(function () {
+    /*$('#Dropdown-button').click(function () {
         switch_user_menu($(this))
-    });
-    $('#Dropdown-button').blur(function () {
+    });*/
+    /*$('#Dropdown-button').blur(function () {
 //        setTimeout(set_off($(this).parent(),'class',' open',/ open/g),500);
-    });
-    $('[title=Notifications]').focus(function () {
+    });*/
+    /*$('[title=Notifications]').focus(function () {
         switch_user_menu($(this))
     });
     $('[title=Notifications]').blur(function () {
         switch_user_menu($(this))
-    });
+    });*/
     $('.item-profile').click(function () {
         history.pushState(null,'User Profile','?profile');
         routing();
     })
     $('.item-settings').click(function () {
-        history.pushState(null,'User Settings','?settingsS');
+        history.pushState(null,'User Settings','?settings');
         routing();
     })
     $('#log-out-button').click(function () {
@@ -78,8 +78,8 @@ $col = $da->rtnres();
     </li>
     <li class="item-notifications">
         <div class="ButtonGroup Dropdown dropdown NotificationsDropdown itemCount0">
-            <button class="Dropdown-toggle Button Button--flat" data-toggle="dropdown" title="Notifications"
-                    aria-expanded="false">
+            <button type="button" class="dropdown-toggle Dropdown-toggle Button Button--flat" data-toggle="dropdown" title="Notifications"
+                    aria-haspopup="true" aria-expanded="false">
                 <i class="icon fa fa-fw fa-bell Button-icon"></i>
                 <span class="Button-label">Notifications</span>
             </button>
@@ -111,15 +111,16 @@ $col = $da->rtnres();
         </div>
     </li>
     <li class="item-session">
-        <div class="ButtonGroup Dropdown dropdown SessionDropdown itemCount4">
-            <button id="Dropdown-button" class="Dropdown-toggle Button Button--user Button--flat" data-toggle="dropdown"
-                    aria-expanded="false">
+        <div class="btn-group ButtonGroup Dropdown dropdown SessionDropdown itemCount4">
+            <button type="button" id="Dropdown-button" class="dropdown-toggle Dropdown-toggle Button Button--user Button--flat" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                 <img class="Avatar " src="<?php echo $col['user_avatar']; ?>">
                 <span class="Button-label">
                     <span class="username"><?php echo $col['user_nickname'] ?></span>
                 </span>
+                <span class="caret"></span>
             </button>
-            <ul class="Dropdown-menu dropdown-menu Dropdown-menu--right">
+            <ul class="dropdown-menu Dropdown-menu Dropdown-menu--right">
                 <li class="item-profile">
                     <a active="false" class=" hasIcon" type="button">
                         <i class="icon fa fa-fw fa-user Button-icon"></i>
@@ -132,7 +133,7 @@ $col = $da->rtnres();
                         <span class="Button-label">Settings</span>
                     </a>
                 </li>
-                <li class="Dropdown-separator"></li>
+                <li role="separator" class="divider"></li>
                 <li class="item-logOut">
                     <a id='log-out-button' class=" hasIcon" type="button">
                         <i class="icon fa fa-fw fa-sign-out Button-icon"></i>

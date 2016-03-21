@@ -89,7 +89,7 @@ include_once "header.php";
             <div class="Modal-footer">
                 <p class="LogInModal-forgotPassword"><a>Forgot password?</a>
                 </p>
-                <p class="LogInModal-signUp">Don't have an account? <a>Sign Up</a>
+                <p class="LogInModal-signUp">Don't have an account? <a href="./?signup">Sign Up</a>
                 </p>
             </div>
         </form>

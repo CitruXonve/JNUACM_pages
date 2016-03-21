@@ -13,13 +13,17 @@ $da = new DataAccess();
         history.pushState(null,'','?all');
         routing_main();
     });
+    $('#start-writing-button').click(function(){
+        history.pushState(null,'','?edit');
+        routing();
+    })
 </script>
 <ul>
     <li class="item-newDiscussion App-primaryControl">
         <button class="Button Button--primary IndexPage-newDiscussion hasIcon"
                 itemclassname="App-primaryControl" type="button">
             <i class="icon fa fa-fw fa-edit Button-icon"></i>
-            <span class="Button-label">Something to write?</span>
+            <span id="start-writing-button" class="Button-label">Something to write?</span>
         </button>
     </li>
     <li class="item-nav">

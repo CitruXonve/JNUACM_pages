@@ -6,9 +6,9 @@
  * Time: 20:30
  */
 require_once "include/lib.php";
+
 //php获取当前访问的完整url地址
-function GetCurUrl()
-{
+function GetCurUrl() {
     $url = 'http://';
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
         $url = 'https://';
@@ -21,8 +21,7 @@ function GetCurUrl()
     return $url;
 }
 
-function convertUrlQuery($query)
-{
+function convertUrlQuery($query) {
     $queryParts = explode('&', $query);
 
     $params = array();
@@ -34,14 +33,13 @@ function convertUrlQuery($query)
     return $params;
 }
 
-function parseContent_full($str)
-{
+function parseContent_full($str) {
     $read_more = '<!--more-->';
 
     return $str;
 }
-function parseContent($str)
-{
+
+function parseContent($str) {
     $read_more = '<!--more-->';
     $pos = strpos($str, $read_more);
     if ($pos === false)
@@ -50,8 +48,7 @@ function parseContent($str)
         return substr($str, 0, $pos);
 }
 
-function has_read_more_tag($str)
-{
+function has_read_more_tag($str) {
     $read_more = '<!--more-->';
     $pos = strpos($str, $read_more);
     if ($pos === false)
@@ -60,15 +57,14 @@ function has_read_more_tag($str)
         return true;
 }
 
-function parseDate($str)
-{
+function parseDate($str) {
     $before = new DateTime($str);
     $now = new DateTime();
     $dif = $before->diff($now);
     if (abs($dif->days) < 1 && abs($dif->h) < 1 && abs($dif->i) < 1)
         return 'a minute ago';
     else if (abs($dif->days) < 1 && abs($dif->h) < 1)
-        return $dif->format('i') . ' minutes ago';
+        return $dif->format('%i') . ' minutes ago';
     else if (abs($dif->days) < 1 && abs($dif->h) < 2)
         return 'an hour ago';
     else if (abs($dif->days) < 1)
@@ -85,54 +81,66 @@ function parseDate($str)
         return 'on ' . $before->format('Y/m/d');
 }
 
-function formatDatetimeInto($datetime, $str)
-{
+function formatDatetimeInto($datetime, $str) {
     return (new DateTime($datetime))->format($str);
 }
 
-function getVerifyingRes(){
+function getVerifyingRes() {
     session_start();
-    if (!isset($_SESSION['user_id'])||!isset($_SESSION['timestamp']))
+    if (!isset($_SESSION['user_id']) || !isset($_SESSION['timestamp']))
         return false;
-    $da=new DataAccess();
+    $da = new DataAccess();
     //echo "SELECT * FROM users WHERE ID=".$_SESSION['user_id']." AND last_login=".$_SESSION['timestamp'].";";
-    $cnt = $da->dosql("SELECT * FROM users WHERE ID=".$_SESSION['user_id']." AND last_login=".$_SESSION['timestamp'].";");
-    if ($cnt!=1)
+    $cnt = $da->dosql("SELECT * FROM users WHERE ID=" . $_SESSION['user_id'] . " AND last_login=" . $_SESSION['timestamp'] . ";");
+    if ($cnt != 1)
         return false;
     else
         return true;
 }
-
 ?>
-<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/jquery.form/3.51/jquery.form.js"></script>
 <script src="//cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.js"></script>
 <script src="//cdn.bootcss.com/globalize/1.1.1/globalize.js"></script>
+<!--<script src="//cdn.bootcss.com/jqModal/1.4.1/jqModal.min.js"></script>-->
+<!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
 <script src="./js/vendor/jquery.ui.widget.js"></script>
 <script src="./js/jquery.iframe-transport.js"></script>
 <script src="./js/jquery.fileupload.js"></script>
 <script src="./js/jquery.pjax.js"></script>
 <script src="./js/state-machine.js"></script>
-<!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
 <link rel="stylesheet" href="//cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.css">
 <link rel="stylesheet" href="./assets/jquery.fileupload.css">
 <script src="./js/md5.js"></script>
+<!-- Bootstrap -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+<link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.css" rel="stylesheet">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 <script type="text/javascript">
-    function set_on(evt, attr_name,attr_var) {
+    function set_on(evt, attr_name, attr_var) {
         var cl = evt.attr(attr_name);
-        if (!cl) return;
+        if (!cl)
+            return;
         if (cl.indexOf(attr_var) < 0)
             cl = cl + attr_var;
         evt.attr(attr_name, cl);
     }
-    function set_off(evt, attr_name,attr_var,regex) {
+    function set_off(evt, attr_name, attr_var, regex) {
         var cl = evt.attr(attr_name);
-        if (!cl) return;
+        if (!cl)
+            return;
         if (cl.indexOf(attr_var) >= 0)
             cl = cl.replace(regex, '');
         evt.attr(attr_name, cl);
     }
-    function switch_open(evt, attr_name,attr_var,regex) {
+    function switch_open(evt, attr_name, attr_var, regex) {
         var cl = evt.attr(attr_name);
         if (cl.indexOf(attr_var) >= 0)
             cl = cl.replace(regex, '');
@@ -158,25 +166,25 @@ function getVerifyingRes(){
         })
     }
     function switch_user_menu(handle) {
-        switch_open(handle.parent(), 'class',' open',/ open/g);
+        switch_open(handle.parent(), 'class', ' open', / open/g);
         switch_true(handle, 'aria-expanded');
     }
     /*function user_verify() {
-        var fun = function (returnData) {
-            if (returnData.result)
-                return true;
-            else
-                return false;
-        };
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            url: 'user_verify.php',
-            cache: false,
-            success: fun
-        })
-        return fun;
-    }*/
+     var fun = function (returnData) {
+     if (returnData.result)
+     return true;
+     else
+     return false;
+     };
+     $.ajax({
+     type: 'GET',
+     dataType: 'json',
+     url: 'user_verify.php',
+     cache: false,
+     success: fun
+     })
+     return fun;
+     }*/
     /*function xmlhttpload_get(source,id){
      var xmlhttp;
      if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
