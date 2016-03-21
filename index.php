@@ -177,8 +177,9 @@
                     load_signup_panel(param.match(/redirect=.*$/));
                     param.replace(/signup.*$/, '');
                 }
-                if (param.match(/edit.*$/)) {
+                if (param.match(/^edit.*$/)) {
                     loadEditPage(param.match(/p=.*$/));
+                    return;
                 }
                 if (param.match(/p=\d+$/)) {
                     //                    display_loading();
@@ -212,6 +213,8 @@
             ;
             function routing() {
                 var param = window.location.search;
+                if (param[0]=="?")
+                    param=param.match(/\?(.*)/)[1];
                 display_loading();
                 var promise = new Promise(function (resolve) {
                     if (loadControls()) {

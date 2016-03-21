@@ -94,7 +94,7 @@ if ($a_cnt<1)
                                             $dau->dosql("select * from users where ID=" . $row['uid']);
                                             $col = $dau->rtnres();
                                             ?>
-                                            <div class="PostUser"><h3><a><img
+                                            <div class="PostUser"><h3><a href="./?u=<?php echo $row['uid'];?>"><img
                                                             class="Avatar PostUser-avatar"
                                                             src="<?php echo $col['user_avatar']; ?>">
                                                         <span
@@ -126,12 +126,11 @@ if ($a_cnt<1)
                                                           datetime="<?php echo formatDatetimeInto($row['date'], 'c'); ?>">
                                                         <?php echo formatDatetimeInto($row['date'], 'l, F j, Y g:i A'); ?>
                                                     </time>
-                                                    <input class="FormControl PostMeta-permalink"></div>
                                             </div>
                                         </li>
-                                        <li class="item-edited"><span class="PostEdited" title=""
+                                        <li class="item-edited"><a class="PostEdited" title="" href="./?edit&p=<?php echo $pid;?>"
                                                                       data-original-title="<?php echo $col['user_nickname'] ?></span> published <?php echo parseDate($row['date']) . '.'; ?>"><i
-                                                    class="icon fa fa-fw fa-pencil "></i></span></li>
+                                                    class="icon fa fa-fw fa-pencil "></i></a></li>
                                     </ul>
                                 </header>
                                 <div class="Post-body">
@@ -164,7 +163,7 @@ if ($a_cnt<1)
                         ?>
                         <article class="Post EventPost DiscussionLockedPost">
                             <div><i class="icon fa fa-fw fa-lock EventPost-icon"></i>
-                                <div class="EventPost-info"><a class="EventPost-user" href="/u/Varona"><span
+                                <div class="EventPost-info"><a class="EventPost-user" href="./?u=<?php echo $row['uid'];?>"><span
                                             class="username"><?php echo $col['user_nickname']; ?></span></a> locked the
                                     discussion.
                                 </div>
