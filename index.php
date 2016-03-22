@@ -137,15 +137,15 @@
             $(document).ready(function () {
 
                 /*$('#home-link').click(function (evt) {
-                    evt.preventDefault();
-                    history.pushState(null, '', '?index');
-                    loadMainPage();
-                })
-                $('#print-link').click(function (evt) {
-                    evt.preventDefault();
-                    history.pushState(null, '', '?print');
-                    loadPrint();
-                })*/
+                 evt.preventDefault();
+                 history.pushState(null, '', '?index');
+                 loadMainPage();
+                 })
+                 $('#print-link').click(function (evt) {
+                 evt.preventDefault();
+                 history.pushState(null, '', '?print');
+                 loadPrint();
+                 })*/
             });
             $(document).scroll(function () {
                 if ($(this).scrollTop() > 0)
@@ -213,8 +213,8 @@
             ;
             function routing() {
                 var param = window.location.search;
-                if (param[0]=="?")
-                    param=param.match(/\?(.*)/)[1];
+                if (param[0] == "?")
+                    param = param.match(/\?(.*)/)[1];
                 display_loading();
                 var promise = new Promise(function (resolve) {
                     if (loadControls()) {
@@ -244,7 +244,7 @@
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
         <div id="app" class="App App--index affix">
             <div id="app-navigation" class="App-navigation">
                 <div class="Navigation ButtonGroup App-backControl">
@@ -252,36 +252,57 @@
                             class="icon fa fa-fw fa-reorder Button-icon"></i></button>
                 </div>
             </div>
-            <div id="drawer" class="App-drawer">
-                <header id="header" class="App-header">
-                    <div id="header-navigation" class="Header-navigation">
-                        <div class="Navigation ButtonGroup "></div>
+            <!--            <div id="drawer" class="App-drawer">
+                            <header id="header" class="App-header">
+                                <div id="header-navigation" class="Header-navigation">
+                                    <div class="Navigation ButtonGroup "></div>
+                                </div>
+                                <div class="container">
+                                    <h1 class="Header-title">
+                                        <a id="home-link" href="./">
+                                            JNU-ACM Club::Home
+                                        </a>
+                                    </h1>
+                                    <h1 class="Header-title">
+                                        <a href="/swap/">
+                                            Swap
+                                        </a>
+                                    </h1>
+                                    <h1 class="Header-title">
+                                        <a id="print-link" href="./?print">
+                                            PrintService
+                                        </a>
+                                    </h1>
+                                    <div id="header-primary" class="Header-primary">
+                                        <ul class="Header-controls"></ul>
+                                    </div>
+                                    <div id="header-secondary" class="Header-secondary">
+                                    </div>
+                                </div>
+                            </header>
+                        </div>-->
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="./">JNU-ACM Club::Home</a>
                     </div>
-                    <div class="container">
-                        <h1 class="Header-title">
-                            <a id="home-link" href="./">
-                                JNU-ACM Club::Home
-                            </a>
-                        </h1>
-                        <h1 class="Header-title">
-                            <a href="/swap/">
-                                Swap
-                            </a>
-                        </h1>
-                        <h1 class="Header-title">
-                            <a id="print-link" href="./?print">
-                                PrintService
-                            </a>
-                        </h1>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/swap/">Swap</a></li>
+                            <li><a id="print-link" href="./?print">PrintService</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+
+                    <ul class="nav navbar-nav navbar-right">
                         <div id="header-primary" class="Header-primary">
                             <ul class="Header-controls"></ul>
                         </div>
                         <div id="header-secondary" class="Header-secondary">
                         </div>
-                    </div>
-                </header>
-            </div>
-
+                    </ul>
+                </div>
+            </nav>
             <main class="App-content">
                 <div id="content">
                     <?php

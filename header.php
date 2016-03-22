@@ -113,7 +113,7 @@ function getVerifyingRes() {
 <link rel="stylesheet" href="./assets/jquery.fileupload.css">
 <script src="./js/md5.js"></script>
 <!-- Bootstrap -->
-<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+<!--<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>-->
 <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.css" rel="stylesheet">
 
