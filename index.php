@@ -252,57 +252,49 @@
                             class="icon fa fa-fw fa-reorder Button-icon"></i></button>
                 </div>
             </div>
-            <!--            <div id="drawer" class="App-drawer">
-                            <header id="header" class="App-header">
-                                <div id="header-navigation" class="Header-navigation">
-                                    <div class="Navigation ButtonGroup "></div>
+            <nav id="drawer" class="navbar navbar-fixed-top App-drawer">
+                <header id="header" class="App-header container">
+                    <div id="header-navigation" class="Header-navigation">
+                        <div class="Navigation ButtonGroup "></div>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><h1 class="Header-title"><a href="./">JNU-ACM Club::Home</a></h1></li>
+                            <li><h1 class="Header-title"><a href="/swap/">Swap</a></h1></li>
+                            <li><h1 class="Header-title"><a id="print-link" href="./?print">PrintService</a></h1></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <div id="header-primary" class="Header-primary">
+                                <ul class="Header-controls"></ul>
+                            </div>
+                            <div id="header-secondary" class="Header-secondary">
+                            </div>
+                        </ul>
+                    </div>
+                </header>
+            </nav>
+            <!--            <nav class="navbar navbar-default navbar-fixed-top">
+                            <div class="container">
+                                <div class="navbar-header">
+                                    <a class="navbar-brand" href="./">JNU-ACM Club::Home</a>
                                 </div>
-                                <div class="container">
-                                    <h1 class="Header-title">
-                                        <a id="home-link" href="./">
-                                            JNU-ACM Club::Home
-                                        </a>
-                                    </h1>
-                                    <h1 class="Header-title">
-                                        <a href="/swap/">
-                                            Swap
-                                        </a>
-                                    </h1>
-                                    <h1 class="Header-title">
-                                        <a id="print-link" href="./?print">
-                                            PrintService
-                                        </a>
-                                    </h1>
+            
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/swap/">Swap</a></li>
+                                        <li><a id="print-link" href="./?print">PrintService</a></li>
+                                    </ul>
+                                </div> /.navbar-collapse 
+            
+                                <ul class="nav navbar-nav navbar-right">
                                     <div id="header-primary" class="Header-primary">
                                         <ul class="Header-controls"></ul>
                                     </div>
                                     <div id="header-secondary" class="Header-secondary">
                                     </div>
-                                </div>
-                            </header>
-                        </div>-->
-            <nav class="navbar navbar-default navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="./">JNU-ACM Club::Home</a>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li><a href="/swap/">Swap</a></li>
-                            <li><a id="print-link" href="./?print">PrintService</a></li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <div id="header-primary" class="Header-primary">
-                            <ul class="Header-controls"></ul>
-                        </div>
-                        <div id="header-secondary" class="Header-secondary">
-                        </div>
-                    </ul>
-                </div>
-            </nav>
+                                </ul>
+                            </div>
+                        </nav>-->
             <main class="App-content">
                 <div id="content">
                     <?php
